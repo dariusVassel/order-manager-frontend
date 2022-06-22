@@ -4,6 +4,8 @@ import { IconContext } from 'react-icons/lib';
 import {Link} from 'react-router-dom';
 import { NavbarContainer, NavLogo, Nav, MobileIcon, NavMenu, NavItem, NavLinks, NavLinks2, NavBtn, NavBtnLink } from './NavbarElements';
 import {animateScroll as scroll} from 'react-scroll'
+import Stack from '@mui/material/Stack';
+
 
 export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProducts, handleGetContacts, toggleSideBar}) {
   const [scrollNav, setScrollNav] = useState(false)
@@ -70,7 +72,10 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
               </NavItem>
             </NavMenu>
             <NavBtn>
-              <NavBtnLink to='/login'>Login</NavBtnLink>
+              <Stack direction="row" spacing={1}>
+                <NavBtnLink to='/signup' >Sign Up</NavBtnLink>
+                <NavBtnLink to='/login'>Login</NavBtnLink>
+              </Stack>
             </NavBtn>
             </>
              ) : (
@@ -90,7 +95,10 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
               </NavItem>
             </NavMenu>
             <NavBtn>
-              <NavBtnLink to='/' onClick={handleLogout}>Logout</NavBtnLink>
+              <Stack direction="row" spacing={1}>
+                <NavBtnLink to='/profile' >Profile</NavBtnLink>
+                <NavBtnLink to='/' onClick={handleLogout}>Logout</NavBtnLink>
+              </Stack>
             </NavBtn>
             </>
              )
