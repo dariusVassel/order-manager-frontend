@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Form, FormContent, FormWrap, Icon, FormH1, FormLabel, FormButton, FormInput, Text, IconWrap, CloseIcon } from './LoginElements'
 import ScrollToTop from '../ScrollToTop'
 
-export default function Login({loginUser, loggedIn, handleGetOrders}) {
+export default function Login({loginUser, loggedIn, handleGetOrders, currentUser, handleSignOut}) {
     const [userData, setUserData] = useState({
         username: "",
         password: ""
@@ -68,12 +68,9 @@ export default function Login({loginUser, loggedIn, handleGetOrders}) {
                 <CloseIcon/>
             </IconWrap>
             <FormWrap>
-                {/* <Icon to="/">withthe<b>tide</b></Icon> */}
                 <FormContent>
                     <Form onSubmit = {handleSubmit}>
-                        <FormH1>
-                            Sign in to your account:
-                        </FormH1>
+                        <FormH1>Sign in to your account:</FormH1>
                         <FormLabel htmlFor='for'>Username</FormLabel>
                         <FormInput  required type="text"  value={userData.username} name="username" id="username" onChange={handleUserData}/>
                         <FormLabel htmlFor='for'>Password</FormLabel>
