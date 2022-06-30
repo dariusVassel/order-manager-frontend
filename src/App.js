@@ -8,6 +8,8 @@ import Home from './components/Static/Home';
 import Sidebar from './components/Sidebar/Sidebar';
 import Signup from './components/Authentication/Signup';
 import Login from './components/Authentication/Login';
+import OrdersList from './components/Orders/OrdersList';
+
 
 import jwt_decode from "jwt-decode"
 
@@ -18,28 +20,39 @@ function App() {
   const [isOpen, setIsOpen] = useState(false)
   const [orders, setOrders] = useState([])
 
+  
+  useEffect(()=> {
+    const token = localStorage.getItem('jwt')
+    
+    if (token && !loggedIn){
+      fetch(baseUrl + '/get-current-user', {
+        method: "GET",
+        headers: {
+          ...headers,
+          ...getToken()
+        }
+      })
+        .then(resp => resp.json())
+        .then(user => {
+          loginUser(user)
+          setCurrentUser(user)
+        })
 
-  function handleCallbackResponse(response){
-    console.log("Encoded JWT ID token: " + response.credential)
-    var userObject = jwt_decode(response.credential);
-    console.log(userObject)
-    setCurrentUser(userObject)
-    document.getElementById("signInDiv").hidden = true 
-  }
-  useEffect(() => {
-   /* global google */
-   google.accounts.id.initialize({
-     client_id: "474331682024-o3r26crc6o28662hptig08ks31b3slpa.apps.googleusercontent.com",
-     callback: handleCallbackResponse 
-   });
-   google.accounts.id.renderButton(
-     document.getElementById("signInDiv"),
-     {theme: "outline", size: "large"}
-   );
-
-   google.accounts.id.prompt();
-   
-  }, [])
+        if (!loggedIn){
+          fetch(baseUrl + '/orders', {
+            headers: {
+              ...headers,
+              ...getToken()
+            }
+          })
+          .then(resp => resp.json())
+          .then(data => {
+            console.log(data)
+            setOrders(data)
+        })
+        }
+    }
+  }, [loggedIn])
 
   function logOutUser(){
     setCurrentUser({})
@@ -86,9 +99,11 @@ function App() {
           <Route path="/" element={<Home/>}/>
           <Route path="/signup" element={<Signup loginUser= {loginUser} loggedIn = {loggedIn} handleGetOrders={handleGetOrders}/>}/>
           <Route path="/login" element={<Login loginUser= {loginUser} handleSignout = {handleSignOut} currentUser= {currentUser} loggedIn = {loggedIn} handleGetOrders={handleGetOrders}/>}/>
+          <Route path="/orders" element={<OrdersList  loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser}/>} />
         </Routes>
+        
       </Router>
-      <div id = "signInDiv"></div>
+      {/* <div id = "signInDiv"></div>
       {Object.keys(currentUser).length != 0 &&
        <button onClick = {(e) => handleSignOut(e)}>Sign Out</button>
        }
@@ -98,7 +113,7 @@ function App() {
           <img src = {currentUser.picture}></img>
           <h3>{currentUser.name}</h3>
           </div>
-      }
+      } */}
     </div>
   );
 }
