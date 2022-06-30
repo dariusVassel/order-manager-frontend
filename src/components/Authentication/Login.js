@@ -85,19 +85,3 @@ export default function Login({loginUser, loggedIn, handleGetOrders, currentUser
         
   )
 }
-
-// {/* <h1>Login:</h1>
-//         <form onSubmit = {handleSubmit}>
-//             <div>
-//             <div>
-//                 <label htmlFor='username'>Username: </label>
-//                 <input type="text"  value={userData.username} name="username" id="username" onChange={handleUserData}></input>
-//             </div>
-//             <div>
-//                 <label htmlFor='password ' >Password: </label>
-//                 <input type="password" value={userData.password} name="password" id="password" onChange={handleUserData}></input>
-//             </div> 
-//             <input type="submit" value="Login" ></input> 
-//             </div> 
-//         </form> */}
-

@@ -98,13 +98,11 @@ export default function Signup({loginUser, loggedIn, handleGetOrders}) {
                     <FormContent>
                         <Form onSubmit = {handleSubmit}>
                             <FormH1>Create Account:</FormH1>
-                            
                                 <FormLabel htmlFor='username'>Username</FormLabel>
                                 <FormInput  required type="text"  value={userData.username} name="username" id="username" onChange={handleUserData}/>
 
                                 <FormLabel htmlFor='password'>Password</FormLabel>
                                 <FormInput  required type="password"  value={userData.password} name="password" id="password" onChange={handleUserData}/>
-                            
                             <FormButton type="submit">Sign Up</FormButton>
                         </Form>
                     </FormContent>
