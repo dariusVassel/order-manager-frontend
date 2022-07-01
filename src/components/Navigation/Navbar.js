@@ -82,7 +82,7 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
             <>
             <NavMenu>
               <NavItem>
-                <NavLinks2 to=""  duration={500} exact='true' offset={-80}>Dashboard</NavLinks2>
+                <NavLinks2 to="/dashboard"  duration={500} exact='true' offset={-80}>Dashboard</NavLinks2>
               </NavItem>
               <NavItem>
                 <NavLinks2 to="/orders"  duration={500}  exact='true' offset={-80}>Orders</NavLinks2>

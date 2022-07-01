@@ -12,6 +12,7 @@ import OrdersList from './components/Orders/OrdersList';
 
 
 import jwt_decode from "jwt-decode"
+import Dashboard from './components/Dashboard/Dashboard';
 
 
 function App() {
@@ -100,6 +101,7 @@ function App() {
           <Route path="/signup" element={<Signup loginUser= {loginUser} loggedIn = {loggedIn} handleGetOrders={handleGetOrders}/>}/>
           <Route path="/login" element={<Login loginUser= {loginUser} handleSignout = {handleSignOut} currentUser= {currentUser} loggedIn = {loggedIn} handleGetOrders={handleGetOrders}/>}/>
           <Route path="/orders" element={<OrdersList  loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser}/>} />
+          <Route path="/dashboard" element={<Dashboard  loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser}/>} />
         </Routes>
         
       </Router>
