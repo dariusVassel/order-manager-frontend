@@ -26,7 +26,8 @@ import ContactPageIcon from '@mui/icons-material/ContactPage';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-
+import DirectionsBoatFilledIcon from '@mui/icons-material/DirectionsBoatFilled';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function Dashboard_Sidebar() {
     const drawerWidth = 240;
@@ -81,6 +82,7 @@ function Dashboard_Sidebar() {
 
       const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
         ({ theme, open }) => ({
+        
           width: drawerWidth,
           flexShrink: 0,
           whiteSpace: 'nowrap',
@@ -110,11 +112,9 @@ function Dashboard_Sidebar() {
   return (
     
     <Box sx={{ display: 'flex' }}>
-        
       <CssBaseline />
-      
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
+      <Drawer variant="permanent" open={open} >
+        <DrawerHeader >
           {open ? (
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -124,9 +124,7 @@ function Dashboard_Sidebar() {
           </IconButton>
           )}  
         </DrawerHeader>
-        
-       
-        
+
         <Divider />
 
         <List>
@@ -157,7 +155,7 @@ function Dashboard_Sidebar() {
         
         <List>
             
-          {[ 'Orders', 'Products', 'Contacts'].map((text, index) => (
+          {[ 'Orders', 'Shipments', 'Products', 'Contacts'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -174,7 +172,7 @@ function Dashboard_Sidebar() {
                     justifyContent: 'center',
                   }}
                 >
-                  {index === 0 ? <SummarizeIcon /> : index === 1 ?<SetMealIcon/> : <ContactPageIcon/>}
+                  {index === 0 ? <SummarizeIcon /> : index === 1 ?<DirectionsBoatFilledIcon/> : index === 2 ?<SetMealIcon/> : <ContactPageIcon/>}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -211,6 +209,34 @@ function Dashboard_Sidebar() {
             </ListItem>
           ))}
         </List>
+
+        <Divider />
+
+        <List>
+            <ListItem key="Logout" disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <LogoutIcon />
+                </ListItemIcon>
+                <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>    
+        </List>
+
+        
         
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

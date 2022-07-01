@@ -1,8 +1,17 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import Dashboard_Sidebar from '../Dashboard_Sidebar/Dashboard_Sidebar'
 import Sidebar from '../Sidebar/Sidebar'
 
-function Dashboard() {
+function Dashboard({loggedIn}) {
+    const navigate = useNavigate()
+
+    useEffect(()=> {
+        if (!loggedIn){
+            navigate("/")
+        }
+        }, [loggedIn])
   return (
     <>
     <div>Orders</div>
