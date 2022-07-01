@@ -1,4 +1,6 @@
 import React from 'react'
+import Dashboard_Sidebar from '../Dashboard_Sidebar/Dashboard_Sidebar'
+import Sidebar from '../Sidebar/Sidebar'
 
 function Dashboard() {
   return (
@@ -14,6 +16,9 @@ function Dashboard() {
     <br/>
     <br/>
     <h1>Dashboard</h1>
+    
+    <Dashboard_Sidebar/>
+    <div className='homeContainer'>Container</div>
     </>
   )
 }
