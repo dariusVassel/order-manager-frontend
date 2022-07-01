@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
+import Dashboard_Sidebar from '../Dashboard_Sidebar/Dashboard_Sidebar'
 
 function Orders({loggedIn, orders, currentUser}) {
   const navigate = useNavigate()
@@ -21,6 +22,7 @@ function Orders({loggedIn, orders, currentUser}) {
     <br/>
     <br/>
     <br/>
+    <Dashboard_Sidebar/>
     <h1>You are logged in</h1>
     </>
   )

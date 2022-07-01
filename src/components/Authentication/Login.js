@@ -15,7 +15,7 @@ export default function Login({loginUser, loggedIn, handleGetOrders, currentUser
 
     useEffect(()=> {
         if (loggedIn){
-            navigate("/orders")
+            navigate("/")
         }
       }, [loggedIn])
 
@@ -50,7 +50,7 @@ export default function Login({loginUser, loggedIn, handleGetOrders, currentUser
             loginUser(data.user)
             localStorage.setItem('jwt', data.token)
             handleGetOrders(e)
-            navigate('/orders')
+            navigate('/dashboard')
         })
 
         setUserData({
