@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 import {Link as LinkS} from 'react-scroll'
+import DashboardIcon from '@mui/icons-material/Dashboard';
+
 
 export const Nav = styled.nav`
     background: ${({scrollNav}) => (scrollNav ? '#000' : '#000')};
-    height: 80px;
+    height: 65px;
     margin-top: -80px;
     display: flex;
     justify-content: center;
@@ -22,7 +24,7 @@ export const Nav = styled.nav`
 export const NavbarContainer  = styled.div`
     display: flex;
     justify-content: space-between;
-    height: 80px;
+    height: 65px;
     z-index: 1;
     width: 100%;
     padding: 0 24px;
@@ -139,3 +141,62 @@ text-decoration: none;
 }
 `
 
+export const NavSearch= styled.input`
+border-radius: 50px;
+margin-top: 20px;
+background: #fff;
+white-space: nowrap;
+padding: 10px 22px;
+width: 400px;
+color: #010606;
+font-size: 16px;
+outline: none;
+border: none;
+cursor: pointer;
+transition: all 0.2s ease-in-out;
+text-decoration: none;
+
+&:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+    
+}
+`
+
+export const Subtitle = styled.p`
+max-width: 440px;
+margin-bottom: 35px;
+font-size: 18px;
+line-height: 24px;
+color: ${({darkText}) => (darkText  ? '#010606': '#fff')};
+
+
+`
+
+export const Dashboard = styled(DashboardIcon)`
+max-width: 440px;
+margin-bottom: 35px;
+font-size: 18px;
+line-height: 24px;
+color: ${({darkText}) => (darkText  ? '#010606': '#fff')};
+`
+
+
+export const ImgWrap = styled.div`
+border-radius: 50px;
+max-width:555px;
+height: 100%;
+
+`
+
+export const Img = styled.img`
+width: 40px;
+height: 40px;
+
+border-radius: 50px;
+width: 100%;
+margin-top 12px;
+
+padding-right: 0; 
+`

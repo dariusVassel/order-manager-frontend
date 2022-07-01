@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react'
 import {FaBars} from 'react-icons/fa'
 import { IconContext } from 'react-icons/lib';
 import {Link} from 'react-router-dom';
-import { NavbarContainer, NavLogo, Nav, MobileIcon, NavMenu, NavItem, NavLinks, NavLinks2, NavBtn, NavBtnLink } from './NavbarElements';
+import { NavbarContainer, NavLogo, Nav, MobileIcon, NavMenu, NavItem, NavLinks, NavLinks2, NavBtn, NavBtnLink, NavSearch, Subtitle, ImgWrap, Img, Dashboard } from './NavbarElements';
 import {animateScroll as scroll} from 'react-scroll'
 import Stack from '@mui/material/Stack';
-
+import Avatar from '../../images/Avatar.png'
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProducts, handleGetContacts, toggleSideBar}) {
   const [scrollNav, setScrollNav] = useState(false)
@@ -47,11 +48,16 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
   }
 
   return (
-    
+      
       <IconContext.Provider value={{color: '#fff'}}>
         <Nav scrollNav={scrollNav} >
           <NavbarContainer>
-            <NavLogo to="/" onClick={toggleHome}>withthe<b>tide</b></NavLogo>
+            {!loggedIn? (
+              <NavLogo to="/" onClick={toggleHome}>withthe<b>tide</b></NavLogo>
+            ):(
+              <NavLogo to="/dashboard" onClick={toggleHome}>withthe<b>tide</b></NavLogo>
+            )}
+            
             <MobileIcon onClick={handleClick2}>
               <FaBars/>
             </MobileIcon >
@@ -82,21 +88,19 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
             <>
             <NavMenu>
               <NavItem>
-                <NavLinks2 to="/dashboard"  duration={500} exact='true' offset={-80}>Dashboard</NavLinks2>
+                <NavSearch duration={500}  exact='true' offset={-80} type="search" placeholder="Search withthetide"/>
               </NavItem>
-              <NavItem>
-                <NavLinks2 to="/orders"  duration={500}  exact='true' offset={-80}>Orders</NavLinks2>
-              </NavItem>
-              <NavItem>
-                <NavLinks2 to="/contacts" onClick={handleContactClick}  duration={500}  exact='true' offset={-80}>Contacts</NavLinks2>
-              </NavItem>
-              <NavItem>
-                <NavLinks2 to="/products" onClick={handleClick}  duration={500}  exact='true' offset={-80}>Products</NavLinks2>
-              </NavItem>
+              
+              
+              
             </NavMenu>
+            <ImgWrap to='/profile' onClick={handleLogout}>
+                  <Img  src={Avatar} alt="logo" />
+                </ImgWrap>
             <NavBtn>
               <Stack direction="row" spacing={1}>
-                <NavBtnLink to='/profile' >Profile</NavBtnLink>
+              <NavBtnLink to='/dashboard'>Dashboard</NavBtnLink>
+
                 <NavBtnLink to='/' onClick={handleLogout}>Logout</NavBtnLink>
               </Stack>
             </NavBtn>
@@ -105,7 +109,9 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
              }
           </NavbarContainer>
         </Nav>
+        
         </IconContext.Provider>
+
 
   )
 }
