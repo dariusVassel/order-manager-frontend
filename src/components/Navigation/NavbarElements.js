@@ -41,6 +41,13 @@ export const NavLogo = styled(Link)`
  margin-left: 24px;
  font-weight: regular;
  text-decoration: none;
+
+ &:hover {
+    transition: all 0.2s ease-in-out;
+    background: black;
+    color: #fff;
+    
+}
 `
 
 export const MobileIcon = styled.div`
@@ -142,6 +149,7 @@ text-decoration: none;
 `
 
 export const NavSearch= styled.input`
+display: flex;
 border-radius: 50px;
 margin-top: 20px;
 background: #fff;
@@ -160,6 +168,8 @@ text-decoration: none;
     transition: all 0.2s ease-in-out;
     background: #fff;
     color: #010606;
+    width: 405px;
+
     
 }
 `
@@ -171,7 +181,11 @@ font-size: 18px;
 line-height: 24px;
 color: ${({darkText}) => (darkText  ? '#010606': '#fff')};
 
-
+&:hover {
+    transition: all 0.2s ease-in-out;
+    background: #026BFB;
+    color: #026BFB;
+}
 `
 
 export const Dashboard = styled(DashboardIcon)`
@@ -187,6 +201,8 @@ export const ImgWrap = styled.div`
 border-radius: 50px;
 max-width:555px;
 height: 100%;
+padding: 0px 22px;
+
 
 `
 

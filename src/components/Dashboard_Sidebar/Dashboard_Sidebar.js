@@ -28,6 +28,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import DirectionsBoatFilledIcon from '@mui/icons-material/DirectionsBoatFilled';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { Tooltip } from '@mui/material';
+import { Navigate, Link } from 'react-router-dom';
 
 function Dashboard_Sidebar() {
     const drawerWidth = 240;
@@ -109,6 +111,11 @@ function Dashboard_Sidebar() {
     setOpen(false);
   };
 
+  function handleSidebarClick(){
+    console.log("OUCH")
+    
+  }
+
   return (
     
     <Box sx={{ display: 'flex' }}>
@@ -128,6 +135,7 @@ function Dashboard_Sidebar() {
         <Divider />
 
         <List>
+        
             <ListItem key="Dashboard" disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -136,7 +144,7 @@ function Dashboard_Sidebar() {
                   px: 2.5,
                 }}
               >
-                
+                <Tooltip title="Dashboard">
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
@@ -146,9 +154,11 @@ function Dashboard_Sidebar() {
                 >
                   <DashboardIcon />
                 </ListItemIcon>
+                </Tooltip>
                 <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>    
+            
         </List>
 
         <Divider />
@@ -156,7 +166,9 @@ function Dashboard_Sidebar() {
         <List>
             
           {[ 'Orders', 'Shipments', 'Products', 'Contacts'].map((text, index) => (
+            <Link to="/contact" style={{ textDecoration: "none" }}>
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+                
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -164,8 +176,8 @@ function Dashboard_Sidebar() {
                   px: 2.5,
                 }}
               >
-                
-                <ListItemIcon
+                <Tooltip title={text}>
+                <ListItemIcon onClick={handleSidebarClick}
                   sx={{
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
@@ -174,9 +186,11 @@ function Dashboard_Sidebar() {
                 >
                   {index === 0 ? <SummarizeIcon /> : index === 1 ?<DirectionsBoatFilledIcon/> : index === 2 ?<SetMealIcon/> : <ContactPageIcon/>}
                 </ListItemIcon>
+                </Tooltip>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
+            </Link>
           ))}
         </List>
         <Divider />
@@ -194,7 +208,7 @@ function Dashboard_Sidebar() {
                   px: 2.5,
                 }}
               >
-                
+                <Tooltip title={text}>
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
@@ -204,6 +218,7 @@ function Dashboard_Sidebar() {
                 >
                   {index === 0 ? <AccountCircleIcon /> : index === 1 ?<MailIcon/> : index === 2?  <NotificationsIcon/> : <SettingsIcon/>}
                 </ListItemIcon>
+                </Tooltip>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
@@ -221,7 +236,7 @@ function Dashboard_Sidebar() {
                   px: 2.5,
                 }}
               >
-                
+                <Tooltip title="Logout">
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
@@ -231,6 +246,7 @@ function Dashboard_Sidebar() {
                 >
                   <LogoutIcon />
                 </ListItemIcon>
+                </Tooltip>
                 <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>    
@@ -241,7 +257,7 @@ function Dashboard_Sidebar() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Typography paragraph>
+        {/* <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
           enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
@@ -267,7 +283,7 @@ function Dashboard_Sidebar() {
           tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
           posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        </Typography> */}
       </Box>
     </Box>
   );

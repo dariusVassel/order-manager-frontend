@@ -5,8 +5,15 @@ import {Link} from 'react-router-dom';
 import { NavbarContainer, NavLogo, Nav, MobileIcon, NavMenu, NavItem, NavLinks, NavLinks2, NavBtn, NavBtnLink, NavSearch, Subtitle, ImgWrap, Img, Dashboard } from './NavbarElements';
 import {animateScroll as scroll} from 'react-scroll'
 import Stack from '@mui/material/Stack';
-import Avatar from '../../images/Avatar.png'
+import AvatarImg from '../../images/Avatar.png'
 import SearchIcon from '@mui/icons-material/Search';
+
+import { AppBar, Avatar, Badge, Box, Container, IconButton, Toolbar, Tooltip } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PersonIcon from '@mui/icons-material/Person';
+
 
 export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProducts, handleGetContacts, toggleSideBar}) {
   const [scrollNav, setScrollNav] = useState(false)
@@ -53,7 +60,9 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
         <Nav scrollNav={scrollNav} >
           <NavbarContainer>
             {!loggedIn? (
-              <NavLogo to="/" onClick={toggleHome}>withthe<b>tide</b></NavLogo>
+              <NavLogo to="/" onClick={toggleHome}>
+                withthe<b>tide</b>
+              </NavLogo>
             ):(
               <NavLogo to="/dashboard" onClick={toggleHome}>withthe<b>tide</b></NavLogo>
             )}
@@ -85,31 +94,29 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
             </NavBtn>
             </>
              ) : (
-            <>
-            <NavMenu>
-              <NavItem>
-                <NavSearch duration={500}  exact='true' offset={-80} type="search" placeholder="Search withthetide"/>
-              </NavItem>
-              
-              
-              
-            </NavMenu>
-            <ImgWrap to='/profile' onClick={handleLogout}>
-                  <Img  src={Avatar} alt="logo" />
+            <>     
+              <NavMenu>
+                <NavItem>
+                  <NavSearch duration={500}  exact='true' offset={-80} type="search" placeholder="Search withthetide"/>
+                </NavItem> 
+              </NavMenu>
+        
+              <Toolbar disableGutters sx={{ minHeight: 64, left: 0, px: 2 }} >
+                <ImgWrap to='/profile' onClick={handleLogout}>
+                  <Img  src={AvatarImg} alt="logo" />
                 </ImgWrap>
-            <NavBtn>
-              <Stack direction="row" spacing={1}>
-              <NavBtnLink to='/dashboard'>Dashboard</NavBtnLink>
-
-                <NavBtnLink to='/' onClick={handleLogout}>Logout</NavBtnLink>
-              </Stack>
-            </NavBtn>
+                <NavBtn>
+                  <Stack direction="row" spacing={1}>
+                    {/* <NavBtnLink to='/dashboard'>Dashboard</NavBtnLink> */}
+                    <NavBtnLink to='/' onClick={handleLogout}>Logout</NavBtnLink>
+                  </Stack>
+                </NavBtn>
+              </Toolbar>
             </>
              )
              }
           </NavbarContainer>
-        </Nav>
-        
+          </Nav>
         </IconContext.Provider>
 
 

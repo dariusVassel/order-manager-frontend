@@ -13,6 +13,9 @@ import OrdersList from './components/Orders/OrdersList';
 
 import jwt_decode from "jwt-decode"
 import Dashboard from './components/Dashboard/Dashboard';
+import { DashboardNavbar } from './components/Dashboard_Navbar/DashboardNavbar';
+import Datatable from './components/Datatable/Datatable';
+import List from './components/List/List';
 
 
 function App() {
@@ -96,26 +99,17 @@ function App() {
       <Router>
         <Sidebar isOpen={isOpen} toggleSideBar={toggleSideBar} loggedIn ={loggedIn} logOutUser={logOutUser} currentUser={currentUser}/>
         <Navbar toggleSideBar={toggleSideBar} loggedIn ={loggedIn} logOutUser={logOutUser} currentUser={currentUser} />
+        {/* <DashboardNavbar/> */}
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/signup" element={<Signup loginUser= {loginUser} loggedIn = {loggedIn} handleGetOrders={handleGetOrders}/>}/>
           <Route path="/login" element={<Login loginUser= {loginUser} handleSignout = {handleSignOut} currentUser= {currentUser} loggedIn = {loggedIn} handleGetOrders={handleGetOrders}/>}/>
           <Route path="/orders" element={<OrdersList  loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser}/>} />
           <Route path="/dashboard" element={<Dashboard  loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser}/>} />
+          <Route path="/contact" element={<List  loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser}/>} />
         </Routes>
         
       </Router>
-      {/* <div id = "signInDiv"></div>
-      {Object.keys(currentUser).length != 0 &&
-       <button onClick = {(e) => handleSignOut(e)}>Sign Out</button>
-       }
-     
-      { currentUser && 
-        <div>
-          <img src = {currentUser.picture}></img>
-          <h3>{currentUser.name}</h3>
-          </div>
-      } */}
     </div>
   );
 }
