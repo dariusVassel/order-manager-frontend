@@ -10,6 +10,9 @@ export default function Login({loginUser, loggedIn, handleGetOrders, currentUser
         password: ""
     })
 
+    const [errors, setErrors] = useState([])
+
+
     const navigate = useNavigate()
 
 
@@ -45,13 +48,19 @@ export default function Login({loginUser, loggedIn, handleGetOrders, currentUser
             headers,
             body: JSON.stringify(strongParams)
         })
-        .then(resp => resp.json())
-        .then(data => {
-            loginUser(data.user)
-            localStorage.setItem('jwt', data.token)
-            handleGetOrders(e)
-            navigate('/dashboard')
+        .then(resp => {
+            if (resp.ok) {
+                resp.json().then(data => {
+                    loginUser(data.user)
+                    localStorage.setItem('jwt', data.token)
+                    handleGetOrders(e)
+                    navigate('/dashboard')
+            })
+            } else {
+                resp.json().then(e=> setErrors(e.errors))
+            }
         })
+
 
         setUserData({
             username: "",
@@ -78,8 +87,13 @@ export default function Login({loginUser, loggedIn, handleGetOrders, currentUser
                         <FormButton type="submit">Login</FormButton>
                         <Text>Forgot password</Text>
                     </Form>
+                    {errors.length > 0 && (
+                        <div style={{ color: "red" }} key={errors}> {errors}</div>
+                    )}
                 </FormContent>
+                
             </FormWrap>
+            
         </Container>
         </>
         
