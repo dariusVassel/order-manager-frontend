@@ -102,7 +102,7 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
               </NavMenu>
         
               <Toolbar disableGutters sx={{ minHeight: 64, left: 0, px: 2 }} >
-                <ImgWrap to='/profile' onClick={handleLogout}>
+                <ImgWrap to='/profile'>
                   <Img  src={AvatarImg} alt="logo" />
                 </ImgWrap>
                 <NavBtn>
