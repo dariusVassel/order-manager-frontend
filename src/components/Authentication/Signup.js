@@ -11,14 +11,12 @@ export default function Signup({loginUser, loggedIn, handleGetOrders}) {
     const [userData, setUserData] = useState({
         username: "",
         password: "",
-        bio: "",
-        first_name: "",
-        last_name: "",
-        phone: "",
-        email: "",
-        country: "",
-        image_url: ""
+        role: "employee", 
+        organization_id: 1
     })
+
+    const [errors, setErrors] = useState({})
+
 
     const client_Id = "474331682024-o3r26crc6o28662hptig08ks31b3slpa.apps.googleusercontent.com"
 
@@ -47,39 +45,40 @@ export default function Signup({loginUser, loggedIn, handleGetOrders}) {
             user: {
                 username: userData.username,
                 password: userData.password,
-                bio: userData.bio,
-                first_name: userData.first_name,
-                last_name: userData.last_name,
-                phone: userData.phone,
-                email: userData.email,
-                country: userData.country,
-                image_url: userData.image_url
+                role: userData.role, 
+                organization_id: userData.organization_id
             }
         }
-
+        console.log(strongParams)
         fetch(baseUrl + '/users',{
             method: "POST",
             headers,
             body: JSON.stringify(strongParams)
         })
-        .then(resp => resp.json())
-        .then(data => {
-            loginUser(data.user)
-            localStorage.setItem('jwt', data.token)
-            handleGetOrders(e)
-            navigate('/orders')
+        .then(resp => {
+            if (resp.ok) {
+                resp.json().then(data => {
+                    loginUser(data.user)
+                    localStorage.setItem('jwt', data.token)
+                    handleGetOrders(e)
+                    navigate('/dashboard')
+            })
+            } else {
+                resp.json().then(e=> {
+                    for (const [key, value] of Object.entries(e)) {
+                        setErrors(`${key}: ${value}`);
+                      }
+                })
+            }
         })
+
+
 
         setUserData({
             username: "",
             password: "",
-            bio: "",
-            first_name: "",
-            last_name: "",
-            phone: "",
-            email: "",
-            country: "",
-            image_url: ""
+            role: "employee", 
+            organization_id: 1
         })
     }
 
@@ -87,6 +86,15 @@ export default function Signup({loginUser, loggedIn, handleGetOrders}) {
         setSignupInfo(!signupInfo);
     } 
 
+    function capitalize(word) {
+        return word[0].toUpperCase() + word.slice(1).toLowerCase();
+      }
+
+
+
+                    
+                    
+    // console.log(Object.entries(e).flat())
     return (
         <>
             <ScrollToTop/>
@@ -105,9 +113,16 @@ export default function Signup({loginUser, loggedIn, handleGetOrders}) {
                                 <FormInput  required type="password"  value={userData.password} name="password" id="password" onChange={handleUserData}/>
                             <FormButton type="submit">Sign Up</FormButton>
                         </Form>
+                        {errors.length > 0 ? (<p style={{ color: "red" }}>{capitalize(errors)}</p>) : (null)}
                     </FormContent>
                 </FormWrap>
             </Container>
         </>
   )
 }
+
+
+// {for (const [key, value] of Object.entries(errors)) {
+//     <h1 style={{ color: "red" }}>{(`${key}: ${value}`)}</h1> 
+//  }
+// }
