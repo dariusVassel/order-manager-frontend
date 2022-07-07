@@ -166,9 +166,9 @@ function Dashboard_Sidebar() {
         <List>
             
           {[ 'Orders', 'Shipments', 'Products', 'Contacts'].map((text, index) => (
-            <Link to="/contact" style={{ textDecoration: "none" }}>
+            
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                
+                <Link to="/contact" style={{ textDecoration: "none" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -189,8 +189,9 @@ function Dashboard_Sidebar() {
                 </Tooltip>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </Link>
             </ListItem>
-            </Link>
+            
           ))}
         </List>
         <Divider />
