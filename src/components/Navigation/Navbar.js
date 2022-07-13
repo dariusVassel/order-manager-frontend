@@ -95,11 +95,11 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
             </>
              ) : (
             <>     
-              <NavMenu>
+              {/* <NavMenu>
                 <NavItem>
                   <NavSearch duration={500}  exact='true' offset={-80} type="search" placeholder="Search withthetide"/>
                 </NavItem> 
-              </NavMenu>
+              </NavMenu> */}
         
               <Toolbar disableGutters sx={{ minHeight: 64, left: 0, px: 2 }} >
                 <ImgWrap to='/profile'>

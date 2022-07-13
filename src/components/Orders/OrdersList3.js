@@ -1,5 +1,3 @@
-import Dashboard_Sidebar from '../Dashboard_Sidebar/Dashboard_Sidebar'
-
 import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import OrderCard from './OrderCard'
@@ -36,82 +34,130 @@ import FormControl from '@mui/material/FormControl';
 import Footer from '../../Footer/Footer'
 
 
-function Orders({loggedIn, orders, currentUser, handleGetOrders}) {
+
+
+
+
+
+
+
+
+export default function OrdersList({loggedIn, orders, handleDeleteOrder, handleGetOrder, navigateOrder, handleSearchOrder }) {
   const [status, setStatus] = useState('');
   const [searchTerm, setSearchTerm] = useState('')  
-
-  const columns = [
-    { id: 'PO', label: 'PO#', minWidth: 170 },
-    {
-      id: 'date',
-      label: 'Date',
-      minWidth: 130,
-      align: 'center',
-      format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-      id: 'product',
-      label: 'Product',
-      minWidth: 130,
-      align: 'center',
-      format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-      id: 'cartons',
-      label: 'Cartons',
-      minWidth: 130,
-      align: 'center',
-      format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-      id: 'seller',
-      label: 'Seller',
-      minWidth: 130,
-      align: 'center',
-      format: (value) => value.toFixed(2),
-    },
-  ];
-
-  function handleClick(order_id){
-  //   fetch(baseUrl + `/orders/${order_id}`, {
-  //     headers: {
-  //       ...headers,
-  //       ...getToken()
-  //     }
-  //   })
-  //   .then(resp => resp.json())
-  //   .then(data => {
-  //     console.log(data)
-  //     handleGetOrder(data)  
-  //     navigate(`/orders/${order_id}`)
-  // })
-
-  console.log('hey')
-  }
-
-  function handleDelete(order_id){
-    // handleDeleteOrder(order_id)
-    console.log('hey')
-  }
-
   const navigate = useNavigate()
+    useEffect(()=> {
+        if (!loggedIn){
+            navigate("/login")
+        }
+        }, [loggedIn])
 
-  const ordersCards = orders.map(order => <h1>{order.cartons}</h1>)
-
-
-  useEffect(()=> {
-    if (!loggedIn){
-        navigate("/login")
+        const columns = [
+          { id: 'PO', label: 'PO#', minWidth: 170 },
+          {
+            id: 'date',
+            label: 'Date',
+            minWidth: 130,
+            align: 'center',
+            format: (value) => value.toLocaleString('en-US'),
+          },
+          {
+            id: 'product',
+            label: 'Product',
+            minWidth: 130,
+            align: 'center',
+            format: (value) => value.toLocaleString('en-US'),
+          },
+          {
+            id: 'cartons',
+            label: 'Cartons',
+            minWidth: 130,
+            align: 'center',
+            format: (value) => value.toLocaleString('en-US'),
+          },
+          {
+            id: 'seller',
+            label: 'Seller',
+            minWidth: 130,
+            align: 'center',
+            format: (value) => value.toFixed(2),
+          },
+        ];
+    const ordersCards = orders.filter((order) => {
+      if (searchTerm == ""){
+        return order
+      } else if (order.product.name.toLowerCase().includes(searchTerm.toLowerCase())){
+        return order
+      }
+    }).map(order => <OrderCard key={order.id} order={order} handleDeleteOrder={handleDeleteOrder} handleGetOrder={handleGetOrder}/>)
+    
+    function handleClick(order_id){
+      fetch(baseUrl + `/orders/${order_id}`, {
+        headers: {
+          ...headers,
+          ...getToken()
+        }
+      })
+      .then(resp => resp.json())
+      .then(data => {
+        console.log(data)
+        handleGetOrder(data)  
+        navigate(`/orders/${order_id}`)
+    })
     }
-    }, [loggedIn])
+
+    function handleDelete(order_id){
+      handleDeleteOrder(order_id)
+    }
+
+    const handleChange = (event) => {
+      setStatus(event.target.value);
+    };
+
+    function handleSearch(e){
+      handleSearchOrder(e)
+    }
+
+    const options = [
+      'None',
+      'Atria',
+      'Callisto',
+      'Dione',
+      'Ganymede',
+      'Hangouts Call',
+      'Luna',
+      'Oberon',
+      'Phobos',
+      'Pyxis',
+      'Sedna',
+      'Titania',
+      'Triton',
+      'Umbriel',
+    ];
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClickDots = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    const ITEM_HEIGHT = 48;
+
+
+
+
   return (
     <>
-    <Dashboard_Sidebar handleGetOrders={handleGetOrders}/>
     <Container style={{ minHeight: '100vh' }}>
       <br/>
       <br/>
-      
-      
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       
       
       <Box sx={{alignItems: 'center', display: 'flex', justifyContent: 'space-between',flexWrap: 'wrap',m: -1}}>
@@ -120,7 +166,6 @@ function Orders({loggedIn, orders, currentUser, handleGetOrders}) {
           <Button startIcon={(<UploadIcon fontSize="small" />)} sx={{ mr: 1 }}>Import</Button>
           <Button startIcon={(<DownloadIcon fontSize="small" />)} sx={{ mr: 1 }} >Export</Button>
           <Button color="primary" variant="contained" onClick = {()=> navigate(`/new_order`)}>New Order</Button>
-          <Button color="primary" variant="contained" onClick = {()=> navigate(`/new_order`)}>New Inquiry</Button>
         </Box>
       </Box>
 
@@ -151,13 +196,26 @@ function Orders({loggedIn, orders, currentUser, handleGetOrders}) {
           </CardContent>
         </Card>
       </Box>
-      <br/>     
+
+      <br/>
+      
+  
+           
+            
       <Paper sx={{ width: '100%', overflow: 'hidden' }} elevation = {2}  padding = {4}>
             <TableContainer sx={{ maxHeight: 1000 }}>
               <Stack>
+                {/* <TextField id="filled-search" label="Search Product" type="search" variant="filled" colSpan={2} onChange={event => setSearchTerm(event.target.value)}/> */}
                 <br/>
                 <Box sx={{ minWidth: 120 }}>
-                  
+                  {/* <FormControl style={{m: 1,minWidth: 120}}>
+                  <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                    <Select labelId="demo-simple-select-label" id="demo-simple-select" value={status} label="Status" onChange={handleChange}>
+                      <MenuItem value={"All"}>All</MenuItem>
+                      <MenuItem value={"New Order"}>New Order</MenuItem>
+                      <MenuItem value={"Complete"}>Complete</MenuItem>
+                    </Select>
+                  </FormControl> */}
                 </Box>
               </Stack>
               <Table stickyHeader aria-label="sticky table">
@@ -178,15 +236,25 @@ function Orders({loggedIn, orders, currentUser, handleGetOrders}) {
                   })
                   .map((order) => (
                   <TableRow key={order.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} hover>
-                    <TableCell component="th" scope="row" >{order.po_number}</TableCell>
+                    <TableCell component="th" scope="row" >{order.PO}</TableCell>
                     <TableCell align="center" >{order.PO_date}</TableCell>
-                    <TableCell align="center" >{order.cartons}</TableCell>
-                    <TableCell align="center" >{order.cartons}</TableCell>
-                    <TableCell align="center" >{order.cartons}</TableCell>
+                    <TableCell align="center" >{order.product.name}</TableCell>
+                    <TableCell align="center" >{order.cases}</TableCell>
+                    <TableCell align="center" >{order.contact.company}</TableCell>
+                    
                     <TableCell align="center">
+                      {/* <Button onClick = {()=> handleClick(order.id)} variant="outlined" color="error">View2</Button> */}
                       <Link  onClick = {()=> handleClick(order.id)} variant="outlined" style={{paddingLeft: 13, textDecoration: 'none'}} to={`/orders/${order.id}`}><Button variant="outlined" >View</Button></Link>
                     </TableCell>
                     <TableCell align="center" onClick = {()=> handleDelete(order.id)}><Button onClick = {()=> console.log(orders)} variant="outlined" color="error">Delete</Button></TableCell>
+                    {/* <TableCell align="center">
+                      <Button id="fade-button" aria-controls={open ? 'fade-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClickDots}>More</Button>
+                      <Menu id="fade-menu" MenuListProps={{'aria-labelledby': 'fade-button',}} anchorEl={anchorEl} open={open} onClose={handleClose} TransitionComponent={Fade}>
+                        <MenuItem onClick = {()=> handleClick(order.id)}>View</MenuItem>
+                        <MenuItem onClick={handleClose}>Edit</MenuItem>
+                        <MenuItem onClick={handleClose}>Delete</MenuItem>
+                      </Menu>
+                    </TableCell> */}
                   </TableRow>
                   ))}
                 </TableBody>
@@ -202,5 +270,3 @@ function Orders({loggedIn, orders, currentUser, handleGetOrders}) {
     </>
   )
 }
-
-export default Orders

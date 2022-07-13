@@ -7,6 +7,8 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import SummarizeIcon from '@mui/icons-material/Summarize';
+import ContactPageIcon from '@mui/icons-material/ContactPage';
+import { Link } from 'react-router-dom';
 
 
 function DashboardWidgets({type}) {
@@ -21,62 +23,62 @@ function DashboardWidgets({type}) {
       data = {
         title: "PRODUCTS",
         isMoney: false,
-        link: "See my products",
+        link: "View Products",
         amount: 17,
         icon: (
           <SetMealIcon
             className="icon"
             style={{
-              color: "crimson",
-              backgroundColor: "rgba(255, 0, 0, 0.2)",
+              color: "#026BFB",
+              backgroundColor: "rgba(235, 234, 234, 0.75)",
             }}
           />
         ),
       };
       break;
-    case "order":
+    case "order_active":
       data = {
-        title: "ORDERS",
+        title: "ACTIVE ORDERS",
         isMoney: false,
         link: "View ongoing orders",
-        amount: 89,
+        amount: 24,
         icon: (
           <SummarizeIcon
             className="icon"
             style={{
-              backgroundColor: "rgba(218, 165, 32, 0.2)",
-              color: "goldenrod",
+              backgroundColor: "rgba(235, 234, 234,  0.75)",
+              color: "#026BFB",
             }}
           />
         ),
       };
       break;
-    case "earning":
+    case "order_complete":
       data = {
-        title: "EARNINGS",
-        isMoney: true,
-        link: "View net earnings",
-        amount: 17,
+        title: "COMPLETED ORDERS",
+        isMoney: false,
+        link: "View completed orders",
+        amount: 87,
         icon: (
-          <MonetizationOnOutlinedIcon
+          <SummarizeIcon
             className="icon"
-            style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
+            style={{ backgroundColor: "rgba(235, 234, 234,  0.75)", color: "#026BFB" }}
           />
         ),
       };
       break;
-    case "balance":
+    case "contact":
       data = {
-        title: "BALANCE",
-        isMoney: true,
-        link: "See details",
-        amount: 17,
+        title: "CONTACTS",
+        isMoney: false,
+        link: "View Contacts",
+        amount: 103,
         icon: (
-          <AccountBalanceWalletOutlinedIcon
+          <ContactPageIcon
             className="icon"
             style={{
-              backgroundColor: "rgba(128, 0, 128, 0.2)",
-              color: "purple",
+              backgroundColor: "rgba(235, 234, 234,  0.75)",
+              color: "#026BFB",
             }}
           />
         ),
@@ -91,13 +93,13 @@ function DashboardWidgets({type}) {
         <div className = 'left'>
             <span className = 'title'>{data.title}</span>
             <span className = 'counter '>{data.isMoney && "$"} {data.amount}</span>
-            <span className = 'link '>{data.link}</span>
+            <Link to={`/${data.title.toLowerCase()}`} style={{ textDecoration: "none" }}><span className = 'link ' style={{ textDecoration: "none" }}>{data.link}</span></Link>
         </div>
         <div className = 'right'>
-            <div className = 'percentage positive'>
+            {/* <div className = 'percentage positive'>
                 <KeyboardArrowUpIcon/>
                 {diff} %
-            </div>
+            </div> */}
             {data.icon}
         </div>
     </div>

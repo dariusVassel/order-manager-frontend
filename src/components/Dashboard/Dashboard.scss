@@ -1,5 +1,7 @@
 .home {
   display: flex;
+  background-color: rgba(235, 234, 234, 0.5);
+  padding-top: 20px;
   
 
   .homeContainer {
@@ -11,6 +13,7 @@
       display: flex;
       padding: 20px;
       gap: 20px;
+      padding-bottom: 5px;
       
 
     }
@@ -24,11 +27,13 @@
       box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
       padding: 20px;
       margin: 20px;
+      background-color: rgb(255, 255, 255);
+      border-radius: 10px;
 
       .listTitle {
-        font-weight: 500;
-        color: gray;
-        margin-bottom: 15px;
+        font-weight: bold;
+        font-size: 14px;
+        color: rgb(160, 160, 160);
       }
     }
   }

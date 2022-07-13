@@ -22,6 +22,8 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import SetMealIcon from '@mui/icons-material/SetMeal';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
+import HomeIcon from '@mui/icons-material/Home';
+import "./Dashboard_Sidebar.scss"
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -31,7 +33,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Tooltip } from '@mui/material';
 import { Navigate, Link } from 'react-router-dom';
 
-function Dashboard_Sidebar() {
+function Dashboard_Sidebar({handleGetOrders}) {
     const drawerWidth = 240;
 
     const openedMixin = (theme) => ({
@@ -111,10 +113,14 @@ function Dashboard_Sidebar() {
     setOpen(false);
   };
 
-  function handleSidebarClick(){
-    console.log("OUCH")
-    
+  function handleSidebarClick(text){
+    console.log(text) 
   }
+  function handleOrderClick(e){
+    handleGetOrders(e)
+  }
+
+  
 
   return (
     
@@ -137,6 +143,7 @@ function Dashboard_Sidebar() {
         <List>
         
             <ListItem key="Dashboard" disablePadding sx={{ display: 'block' }}>
+              <Link to={`/dashboard`} style={{ textDecoration: "none" }} className="links">
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -152,11 +159,12 @@ function Dashboard_Sidebar() {
                     justifyContent: 'center',
                   }}
                 >
-                  <DashboardIcon />
+                  <HomeIcon />
                 </ListItemIcon>
                 </Tooltip>
                 <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </Link>
             </ListItem>    
             
         </List>
@@ -164,11 +172,35 @@ function Dashboard_Sidebar() {
         <Divider />
         
         <List>
+            <ListItem key={'Orders'} disablePadding sx={{ display: 'block' }} >
+              <Link to={`/orders`} style={{ textDecoration: "none" }} className="links" onClick={handleOrderClick}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <Tooltip title={"Orders"}>
+                <ListItemIcon 
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <SummarizeIcon />
+                </ListItemIcon>
+                </Tooltip>
+                <ListItemText primary={'Orders'} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+              </Link>
+            </ListItem>
             
-          {[ 'Orders', 'Shipments', 'Products', 'Contacts'].map((text, index) => (
+          {['Shipments', 'Products', 'Contacts'].map((text, index) => (
             
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                <Link to="/contact" style={{ textDecoration: "none" }}>
+            <ListItem key={text} disablePadding sx={{ display: 'block' }} >
+              <Link to={`/${text.toLowerCase()}`} style={{ textDecoration: "none" }} className="links" >
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -177,14 +209,14 @@ function Dashboard_Sidebar() {
                 }}
               >
                 <Tooltip title={text}>
-                <ListItemIcon onClick={handleSidebarClick}
+                <ListItemIcon 
                   sx={{
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
                   }}
                 >
-                  {index === 0 ? <SummarizeIcon /> : index === 1 ?<DirectionsBoatFilledIcon/> : index === 2 ?<SetMealIcon/> : <ContactPageIcon/>}
+                  {index === 0 ? <DirectionsBoatFilledIcon /> : index === 1 ?<SetMealIcon/>: <ContactPageIcon/>}
                 </ListItemIcon>
                 </Tooltip>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />

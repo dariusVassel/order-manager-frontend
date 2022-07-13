@@ -7,6 +7,7 @@ import {
     CartesianGrid,
     Tooltip,
     ResponsiveContainer,
+    LineChart, YAxis, Line
   } from "recharts";
   
   const data = [
@@ -42,10 +43,17 @@ function DashboardCharts({ aspect, title }) {
             type="monotone"
             dataKey="Total"
             stroke="#8884d8"
-            fillOpacity={1}
+            fillOpacity={0}
             fill="url(#total)"
           />
         </AreaChart>
+          {/* <LineChart width={500} height={300} data={data.total}>
+    <XAxis dataKey="name"/>
+    <YAxis/>
+    <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
+    <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+    <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
+  </LineChart> */}
       </ResponsiveContainer>
     </div>
   )

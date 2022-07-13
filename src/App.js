@@ -16,6 +16,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import { DashboardNavbar } from './components/Dashboard_Navbar/DashboardNavbar';
 import Datatable from './components/Datatable/Datatable';
 import List from './components/List/List';
+import Product from './components/Products/Product';
 
 
 function App() {
@@ -51,7 +52,6 @@ function App() {
           })
           .then(resp => resp.json())
           .then(data => {
-            console.log(data)
             setOrders(data)
         })
         }
@@ -82,7 +82,7 @@ function App() {
     })
     .then(resp => resp.json())
     .then(data => {
-      // console.log(data)
+      console.log(data)
       setOrders(data)
   })}
 
@@ -104,9 +104,10 @@ function App() {
           <Route path="/" element={<Home/>}/>
           <Route path="/signup" element={<Signup loginUser= {loginUser} loggedIn = {loggedIn} handleGetOrders={handleGetOrders}/>}/>
           <Route path="/login" element={<Login loginUser= {loginUser} handleSignout = {handleSignOut} currentUser= {currentUser} loggedIn = {loggedIn} handleGetOrders={handleGetOrders}/>}/>
-          <Route path="/orders" element={<OrdersList  loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser}/>} />
-          <Route path="/dashboard" element={<Dashboard  loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser}/>} />
-          <Route path="/contact" element={<List  loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser}/>} />
+          <Route path="/orders" element={<OrdersList  loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser} handleGetOrders={handleGetOrders}/>} />
+          <Route path="/dashboard" element={<Dashboard  loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser} handleGetOrders={handleGetOrders}/>} />
+          <Route path="/contacts" element={<List  loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser}/>} />
+          <Route path="/products" element={<Product  loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser}/>} />
         </Routes>
         
       </Router>
