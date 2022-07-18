@@ -2,18 +2,11 @@ import Dashboard_Sidebar from '../Dashboard_Sidebar/Dashboard_Sidebar'
 
 import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
-import OrderCard from './OrderCard'
 import { baseUrl, headers, getToken } from '../../Globals'
 import Stack from '@mui/material/Stack';
 import { Paper, Container, Box, Grid } from '@mui/material'
 
 import {Button,Card,CardContent,TextField,InputAdornment,SvgIcon, Typography} from '@mui/material';
-import Fade from '@mui/material/Fade';
-
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-
 
 import SearchIcon from '@mui/icons-material/Search';
 import UploadIcon from '@mui/icons-material/Upload';
@@ -24,19 +17,13 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
-
 import {Link} from 'react-router-dom'
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
 import Footer from '../../Footer/Footer'
 
 
-function Orders({loggedIn, orders, currentUser, handleGetOrders}) {
+function OrdersList({loggedIn, orders, handleGetOrders, handleGetOrder, handleDeleteOrder}) {
   const [status, setStatus] = useState('');
   const [searchTerm, setSearchTerm] = useState('')  
 
@@ -72,7 +59,7 @@ function Orders({loggedIn, orders, currentUser, handleGetOrders}) {
     },
   ];
 
-  function handleClick(order_id){
+  // function handleClick(order_id){
   //   fetch(baseUrl + `/orders/${order_id}`, {
   //     headers: {
   //       ...headers,
@@ -86,12 +73,14 @@ function Orders({loggedIn, orders, currentUser, handleGetOrders}) {
   //     navigate(`/orders/${order_id}`)
   // })
 
-  console.log('hey')
+  function handleSingleOrderClick(order_id){
+    handleGetOrder(order_id)  
   }
 
+  
+
   function handleDelete(order_id){
-    // handleDeleteOrder(order_id)
-    console.log('hey')
+    handleDeleteOrder(order_id)
   }
 
   const navigate = useNavigate()
@@ -184,7 +173,7 @@ function Orders({loggedIn, orders, currentUser, handleGetOrders}) {
                     <TableCell align="center" >{order.cartons}</TableCell>
                     <TableCell align="center" >{order.cartons}</TableCell>
                     <TableCell align="center">
-                      <Link  onClick = {()=> handleClick(order.id)} variant="outlined" style={{paddingLeft: 13, textDecoration: 'none'}} to={`/orders/${order.id}`}><Button variant="outlined" >View</Button></Link>
+                      <Link  to={`/orders/${order.id}`} onClick = {() => handleSingleOrderClick(order.id)} variant="outlined" style={{paddingLeft: 13, textDecoration: 'none'}} ><Button variant="outlined" >View</Button></Link>
                     </TableCell>
                     <TableCell align="center" onClick = {()=> handleDelete(order.id)}><Button onClick = {()=> console.log(orders)} variant="outlined" color="error">Delete</Button></TableCell>
                   </TableRow>
@@ -203,4 +192,4 @@ function Orders({loggedIn, orders, currentUser, handleGetOrders}) {
   )
 }
 
-export default Orders
+export default OrdersList

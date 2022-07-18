@@ -8,6 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { baseUrl, headers, getToken } from '../../Globals'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../../Footer/Footer';
+import Dashboard_Sidebar from '../Dashboard_Sidebar/Dashboard_Sidebar';
 
 
 
@@ -256,11 +257,9 @@ export default function NewOrder({currentUser, handleGetOrders}) {
     <>
         <br/>
         <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+        
         <Container>
+            <Dashboard_Sidebar/>
             <Paper sx={{ width: '100%', overflow: 'hidden' }} elevation = {4}  padding = {4}>
                 
                 <Box
