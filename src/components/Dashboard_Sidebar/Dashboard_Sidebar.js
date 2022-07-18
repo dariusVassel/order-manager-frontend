@@ -24,6 +24,7 @@ import SetMealIcon from '@mui/icons-material/SetMeal';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import HomeIcon from '@mui/icons-material/Home';
 import "./Dashboard_Sidebar.scss"
+import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -33,7 +34,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Tooltip } from '@mui/material';
 import { Navigate, Link } from 'react-router-dom';
 
-function Dashboard_Sidebar({handleGetOrders}) {
+function Dashboard_Sidebar({handleGetOrders, handleGetInquiries, handleGetProducts}) {
     const drawerWidth = 240;
 
     const openedMixin = (theme) => ({
@@ -119,6 +120,14 @@ function Dashboard_Sidebar({handleGetOrders}) {
   function handleOrderClick(e){
     handleGetOrders(e)
   }
+  function handleInquiryClick(e){
+    handleGetInquiries(e)
+  }
+  function handleProductClick(e){
+    handleGetProducts(e)
+  }
+
+  
 
   
 
@@ -196,8 +205,33 @@ function Dashboard_Sidebar({handleGetOrders}) {
               </ListItemButton>
               </Link>
             </ListItem>
+
+            <ListItem key={'Inquiries'} disablePadding sx={{ display: 'block' }} >
+              <Link to={`/inquiries`} style={{ textDecoration: "none" }} className="links" onClick={handleInquiryClick}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <Tooltip title={"Inquiries"}>
+                <ListItemIcon 
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <ForwardToInboxIcon />
+                </ListItemIcon>
+                </Tooltip>
+                <ListItemText primary={'Inquiries'} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+              </Link>
+            </ListItem>
             
-          {['Shipments', 'Products', 'Contacts'].map((text, index) => (
+          {['Shipments', 'Contacts'].map((text, index) => (
             
             <ListItem key={text} disablePadding sx={{ display: 'block' }} >
               <Link to={`/${text.toLowerCase()}`} style={{ textDecoration: "none" }} className="links" >
@@ -216,15 +250,41 @@ function Dashboard_Sidebar({handleGetOrders}) {
                     justifyContent: 'center',
                   }}
                 >
-                  {index === 0 ? <DirectionsBoatFilledIcon /> : index === 1 ?<SetMealIcon/>: <ContactPageIcon/>}
+                  {index === 0 ? < DirectionsBoatFilledIcon/> : <ContactPageIcon/> }
                 </ListItemIcon>
                 </Tooltip>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
               </Link>
             </ListItem>
+
+            
             
           ))}
+          <ListItem key={'Products'} disablePadding sx={{ display: 'block' }} >
+              <Link to={`/items`} style={{ textDecoration: "none" }} className="links" onClick={handleProductClick}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <Tooltip title={"Products"}>
+                <ListItemIcon 
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <SetMealIcon />
+                </ListItemIcon>
+                </Tooltip>
+                <ListItemText primary={'Products'} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+              </Link>
+            </ListItem>
         </List>
         <Divider />
 

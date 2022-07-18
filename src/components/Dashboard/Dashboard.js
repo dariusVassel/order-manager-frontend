@@ -11,8 +11,10 @@ import DashboardWidgets from '../Dashboard_Widgets/DashboardWidgets'
 import Footer from '../Footer/Footer'
 import "./Dashboard.scss"
 
-function Dashboard({loggedIn, handleGetOrders}) {
+function Dashboard({loggedIn, handleGetOrders, handleGetInquiries, handleGetProducts, currentUser}) {
     const navigate = useNavigate()
+
+    
 
     useEffect(()=> {
         if (!loggedIn){
@@ -26,15 +28,9 @@ function Dashboard({loggedIn, handleGetOrders}) {
     <br/>
     
     <div className='home'>
-        <Dashboard_Sidebar handleGetOrders={handleGetOrders}/>
+        <Dashboard_Sidebar handleGetOrders={handleGetOrders} handleGetInquiries={handleGetInquiries} handleGetProducts={handleGetProducts}/>
             <div className='homeContainer'>
-                {/* Ongoing Orders
-                    Past Orders AKA Completed Orders (Get People Started)
-                    Active Tasks
-                    Create New Product 
-                    Manage Contacts*/}
 
-                
                 <div className='widgets'>
                     <DashboardWidgets type = "order_active"/>
                     <DashboardWidgets type = "order_complete"/>
@@ -46,26 +42,17 @@ function Dashboard({loggedIn, handleGetOrders}) {
                     <div className='listTitle'>TASKS</div>
                     <DashboardTable/>
                 </div>
-
-                
-                
+ 
                 <div className='charts'>
-                    <DashboardInquiry/>
+                    <DashboardInquiry handleGetInquiries={handleGetInquiries} currentUser={currentUser}/>
                     <DashboardCharts title="Last 6 Months (Revenue)" aspect={2 / 1}/>
-                    {/* <div className='listContainer'>
-                        <div className='listTitle'>TASKS</div>
-                        
-                        <DashboardTaskTable/>
-                    </div> */}
                 </div>
-                
-
                 
             </div>
     </div>
     <br/>
-      <br/>
-      <br/>
+    <br/>
+    <br/>
     <Footer/>
     </>
   )
