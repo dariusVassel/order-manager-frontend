@@ -7,9 +7,9 @@ import "./List.scss"
 function List() {
   return (
     <>
+        {/* <br/>
         <br/>
-        <br/>
-        <br/>
+        <br/> */}
         <div className="list">
             
             <Dashboard_Sidebar/>
