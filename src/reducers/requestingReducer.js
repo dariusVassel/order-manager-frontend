@@ -1,7 +1,11 @@
-const initialState =  true;
+const initialState =  false;
 
 const requestingReducer = (state= initialState, action) => {
     switch(action.type){
+        case "REQUESTING":
+            return true;
+        case "DONE_REQUESTING":
+            return false;
         default:
         return state;
     }
