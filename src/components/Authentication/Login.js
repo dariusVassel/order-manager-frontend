@@ -3,22 +3,30 @@ import { baseUrl, headers } from '../../Globals'
 import { useNavigate } from 'react-router-dom'
 import { Container, Form, FormContent, FormWrap, Icon, FormH1, FormLabel, FormButton, FormInput, Text, IconWrap, CloseIcon } from './LoginElements'
 import ScrollToTop from '../ScrollToTop'
+import {useDispatch, useSelector} from 'react-redux'
+import {login} from '../../actions/sessions'
 
-export default function Login({loginUser, loggedIn, handleGetOrders, currentUser, handleSignOut}) {
+export default function Login({loginUser, handleGetOrders, currentUser, handleSignOut}) {
     const [userData, setUserData] = useState({
         username: "",
         password: ""
     })
+    const errors = useSelector(state => state.errors)
+    const loggedIn = useSelector(state => state.sessions.loggedIn)
 
-    const [errors, setErrors] = useState([])
 
+    // const [errors, setErrors] = useState([])
 
+    //REDUX
+    const dispatch = useDispatch()
+
+    //React-Router-Dom
     const navigate = useNavigate()
 
 
     useEffect(()=> {
         if (loggedIn){
-            navigate("/")
+            navigate("/dashboard")
         }
       }, [loggedIn])
 
@@ -43,23 +51,24 @@ export default function Login({loginUser, loggedIn, handleGetOrders, currentUser
             password
         }
 
-        fetch(baseUrl + '/login',{
-            method: "POST",
-            headers,
-            body: JSON.stringify(strongParams)
-        })
-        .then(resp => {
-            if (resp.ok) {
-                resp.json().then(data => {
-                    loginUser(data.user)
-                    localStorage.setItem('jwt', data.token)
-                    handleGetOrders(e)
-                    navigate('/dashboard')
-            })
-            } else {
-                resp.json().then(e=> setErrors(e.errors))
-            }
-        })
+        // fetch(baseUrl + '/login',{
+        //     method: "POST",
+        //     headers,
+        //     body: JSON.stringify(strongParams)
+        // })
+        // .then(resp => {
+        //     if (resp.ok) {
+        //         resp.json().then(data => {
+        //             loginUser(data.user)
+        //             localStorage.setItem('jwt', data.token)
+        //             handleGetOrders(e)
+        //             navigate('/dashboard')
+        //     })
+        //     } else {
+        //         resp.json().then(e=> setErrors(e.errors))
+        //     }
+        // })
+        dispatch(login(strongParams, navigate))
 
 
         setUserData({

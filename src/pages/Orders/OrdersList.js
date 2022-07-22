@@ -1,4 +1,4 @@
-import Dashboard_Sidebar from '../Dashboard_Sidebar/Dashboard_Sidebar'
+import Dashboard_Sidebar from '../../components/Dashboard_Sidebar/Dashboard_Sidebar'
 
 import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -21,11 +21,16 @@ import TableRow from '@mui/material/TableRow';
 
 import {Link} from 'react-router-dom'
 import Footer from '../../Footer/Footer'
+import {useSelector} from 'react-redux';
 
 
-function OrdersList({loggedIn, orders, handleGetOrders, handleGetOrder, handleDeleteOrder}) {
+
+function OrdersList({ handleGetOrders, handleGetOrder, handleDeleteOrder}) {
   const [status, setStatus] = useState('');
   const [searchTerm, setSearchTerm] = useState('')  
+  const loggedIn = useSelector(state => state.sessions.loggedIn)
+  const orders = useSelector(state => state.orders)
+
 
   const columns = [
     { id: 'PO', label: 'PO#', minWidth: 170 },

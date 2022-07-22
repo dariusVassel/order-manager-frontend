@@ -5,11 +5,15 @@ import { baseUrl, headers, getToken } from '../../Globals'
 import { useNavigate } from 'react-router-dom'
 
 import MenuItem from '@mui/material/MenuItem';
+import {useSelector, useDispatch} from 'react-redux';
+import { addInquiry } from '../../actions/inquiries'
 
 
-function DashboardInquiry({currentUser,handleGetInquiries}) {
+function DashboardInquiry({handleGetInquiries}) {
     const navigate = useNavigate()
     const [contact, setContact] = useState("");
+    const currentUser = useSelector(state => state.sessions.currentUser)
+    const dispatch = useDispatch()
 
     const [newInquiry, setNewInquiry] = useState({
       item_id: null,
@@ -54,19 +58,21 @@ function DashboardInquiry({currentUser,handleGetInquiries}) {
           }
       }
 
-      fetch(baseUrl + '/order_inquiries',{
-          method: "POST",
-          headers: {
-              ...headers,
-              ...getToken()
-          },
-          body: JSON.stringify(strongParams)
-      })
-      .then(resp => resp.json())
-      .then(data => {
-          handleGetInquiries(e)
-          navigate('/inquiries')
-      })
+      dispatch(addInquiry(strongParams))
+
+      // fetch(baseUrl + '/order_inquiries',{
+      //     method: "POST",
+      //     headers: {
+      //         ...headers,
+      //         ...getToken()
+      //     },
+      //     body: JSON.stringify(strongParams)
+      // })
+      // .then(resp => resp.json())
+      // .then(data => {
+      //     handleGetInquiries(e)
+      //     navigate('/inquiries')
+      // })
 
       setNewInquiry({
         item_id: null,

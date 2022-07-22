@@ -8,25 +8,29 @@ import Stack from '@mui/material/Stack';
 import AvatarImg from '../../images/Avatar.png'
 import SearchIcon from '@mui/icons-material/Search';
 
-import { AppBar, Avatar, Badge, Box, Container, IconButton, Toolbar, Tooltip } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import PersonIcon from '@mui/icons-material/Person';
+import {useSelector, useDispatch} from 'react-redux';
+import { logout } from '../../actions/sessions';
+
+import { Toolbar } from '@mui/material';
 
 
-export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProducts, handleGetContacts, toggleSideBar}) {
+export default function Navbar({ handleGetProducts, handleGetContacts, toggleSideBar}) {
+  
+  //REDUX
+  const loggedIn = useSelector(state => state.sessions.loggedIn)
+  const dispatch = useDispatch()
+  
+  //Landing Page Scroll
   const [scrollNav, setScrollNav] = useState(false)
 
   function changeNav(){
     if(window.scrollY >= 200){
       setScrollNav(true);
-    }else{
+    }else{ 
       setScrollNav(false);
       }
     };
   
-
   useEffect(() => {
     window.addEventListener('scroll', changeNav)
   }, []);
@@ -34,7 +38,8 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
 
   function handleLogout(e){
     e.preventDefault()
-    logOutUser()
+    dispatch(logout())
+    // logOutUser()
   } 
 
   function handleClick(e){

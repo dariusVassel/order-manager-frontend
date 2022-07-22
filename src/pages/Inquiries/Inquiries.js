@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Dashboard_Sidebar from '../Dashboard_Sidebar/Dashboard_Sidebar'
+import Dashboard_Sidebar from '../../components/Dashboard_Sidebar/Dashboard_Sidebar'
 import { useNavigate } from 'react-router-dom'
 
 import SearchIcon from '@mui/icons-material/Search';
@@ -18,18 +18,20 @@ import Stack from '@mui/material/Stack';
 import { Paper, Container, Box } from '@mui/material'
 
 import {Button,Card,CardContent,TextField,InputAdornment,SvgIcon, Typography} from '@mui/material';
-import ScrollToTop from '../ScrollToTop'
+import ScrollToTop from '../../components/ScrollToTop'
 
 import {Link} from 'react-router-dom'
-import Footer from '../Footer/Footer';
+import Footer from '../../components/Footer/Footer';
 
 import IconButton from '@mui/material/IconButton';
 
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Cancel';
+import {useSelector, useDispatch} from 'react-redux';
+import {loadInquiries} from "../../actions/inquiries"
 
-function Inquiries({loggedIn, handleGetOrders, inquiries, handleDeleteInquiry}) {
+function Inquiries({handleGetOrders, handleDeleteInquiry}) {
   const createData = (name, calories, fat, carbs, protein) => ({
     id: name.replace(" ", "_"),
     name,
@@ -39,6 +41,26 @@ function Inquiries({loggedIn, handleGetOrders, inquiries, handleDeleteInquiry}) 
     protein,
     isEditMode: false
   });  
+
+  const loggedIn = useSelector(state => state.sessions.loggedIn)
+  const inquiries = useSelector(state => state.inquiries)
+  const requesting = useSelector(state=>state.requesting)
+
+  useEffect(()=> {
+    if (!loggedIn){
+        navigate("/login")
+    }
+    }, [loggedIn])
+  
+
+  const dispatch = useDispatch()
+  // useEffect(()=> {
+  //   if (!loggedIn){
+  //       navigate("/login")
+  //   } else {
+  //     dispatch(loadInquiries())
+  //   }
+  //   }, [loggedIn])
   
   
     const [previous, setPrevious] = React.useState({});
@@ -104,11 +126,7 @@ function Inquiries({loggedIn, handleGetOrders, inquiries, handleDeleteInquiry}) 
       onToggleEditMode(id);
     };
 
-    useEffect(()=> {
-        if (!loggedIn){
-            navigate("/login")
-        }
-        }, [loggedIn])
+    
 
     function handleDelete(order_id){
         handleDeleteInquiry(order_id)
@@ -159,6 +177,8 @@ function Inquiries({loggedIn, handleGetOrders, inquiries, handleDeleteInquiry}) 
 
       const CustomTableCell = ({ row, name, onChange }) => {
         const { isEditMode } = row;
+
+      
         return (
           <TableCell align="left" className="tableCell">
             {isEditMode ? (
@@ -216,6 +236,11 @@ function Inquiries({loggedIn, handleGetOrders, inquiries, handleDeleteInquiry}) 
             format: (value) => value.toFixed(2),
         },
         ];
+
+  if (requesting){
+    //create loading component here
+    return <h1> Loading.... </h1>
+  }
 
   return (
     <>

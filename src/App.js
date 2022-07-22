@@ -8,19 +8,22 @@ import Home from './components/Static/Home';
 import Sidebar from './components/Sidebar/Sidebar';
 import Signup from './components/Authentication/Signup';
 import Login from './components/Authentication/Login';
-import OrdersList from './components/Orders/OrdersList';
+import OrdersList from './pages/Orders/OrdersList';
+
+import {useSelector, useDispatch} from 'react-redux'
+import { getCurrentUser } from './actions/sessions';
 
 
 import jwt_decode from "jwt-decode"
-import Dashboard from './components/Dashboard/Dashboard';
+import Dashboard from './pages/Dashboard/Dashboard';
 import { DashboardNavbar } from './components/Dashboard_Navbar/DashboardNavbar';
 import Datatable from './components/Datatable/Datatable';
 import List from './components/List/List';
 import Product from './components/Products/Product';
-import Inquiries from './components/Inquiries/Inquiries';
+import Inquiries from './pages/Inquiries/Inquiries';
 import Dashboard_Sidebar from './components/Dashboard_Sidebar/Dashboard_Sidebar';
-import SingleOrder from './components/Orders/SingleOrder';
-import NewOrder from "./components/Orders/NewOrder"
+import SingleOrder from './pages/Orders/SingleOrder';
+import NewOrder from "./pages/Orders/NewOrder"
 
 function App() {
   // const [currentUser, setCurrentUser] = useState({});
@@ -30,50 +33,64 @@ function App() {
   const [order, setOrder] = useState([])
   const [inquiries, setInquiries] = useState([])
   const [items, setItems] = useState([])
+  
+  //Redux
+  const loggedIn = useSelector(state => state.sessions.loggedIn)
+  const requesting = useSelector(state=>state.requesting)
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getCurrentUser())
+  },[loggedIn])
+
+  // useEffect(() => {
+  //   dispatch(getCurrentUser())
+  // }, [])
+  
+  // useEffect(()=> {
+  //   const token = localStorage.getItem('jwt')
+    
+  //   if (token && !loggedIn){
+  //     fetch(baseUrl + '/get-current-user', {
+  //       method: "GET",
+  //       headers: {
+  //         ...headers,
+  //         ...getToken()
+  //       }
+  //     })
+  //       .then(resp => resp.json())
+  //       .then(user => {
+  //         loginUser(user)
+  //         setCurrentUser(user)
+  //       })
+
+  //       if (!loggedIn){
+  //         fetch(baseUrl + '/orders', {
+  //           headers: {
+  //             ...headers,
+  //             ...getToken()
+  //           }
+  //         })
+  //         .then(resp => resp.json())
+  //         .then(data => {
+  //           setOrders(data)
+  //       })
+  //       }
+  //   }
+  // }, [loggedIn])
+
+  // function logOutUser(){
+  //   setCurrentUser({})
+  //   setLoggedIn(false)
+  //   localStorage.removeItem('jwt')
+  // }
+
+  // function loginUser(user){
+  //   setCurrentUser(user)
+  //   setLoggedIn(true)
+  // }
 
   
-  useEffect(()=> {
-    const token = localStorage.getItem('jwt')
-    
-    if (token && !loggedIn){
-      fetch(baseUrl + '/get-current-user', {
-        method: "GET",
-        headers: {
-          ...headers,
-          ...getToken()
-        }
-      })
-        .then(resp => resp.json())
-        .then(user => {
-          loginUser(user)
-          setCurrentUser(user)
-        })
-
-        if (!loggedIn){
-          fetch(baseUrl + '/orders', {
-            headers: {
-              ...headers,
-              ...getToken()
-            }
-          })
-          .then(resp => resp.json())
-          .then(data => {
-            setOrders(data)
-        })
-        }
-    }
-  }, [loggedIn])
-
-  function logOutUser(){
-    setCurrentUser({})
-    setLoggedIn(false)
-    localStorage.removeItem('jwt')
-  }
-
-  function loginUser(user){
-    setCurrentUser(user)
-    setLoggedIn(true)
-  }
 
   function toggleSideBar(e){
     setIsOpen(!isOpen)
@@ -118,7 +135,6 @@ function App() {
     })
     .then(resp => resp.json())
     .then(data => {
-      console.log(data)
       setInquiries(data)
     })
   }
@@ -169,9 +185,13 @@ function handleGetProducts(e){
 }
 
   function handleSignOut(e){
-    setCurrentUser({});
+    // setCurrentUser({});
     document.getElementById("signInDiv").hidden = false
   }
+
+  
+
+  
 
   
   
@@ -179,20 +199,20 @@ function handleGetProducts(e){
     <div className="App">
       
       <Router>
-        <Sidebar isOpen={isOpen} toggleSideBar={toggleSideBar} loggedIn ={loggedIn} logOutUser={logOutUser} currentUser={currentUser}/>
-        <Navbar toggleSideBar={toggleSideBar} loggedIn ={loggedIn} logOutUser={logOutUser} currentUser={currentUser} />
+        <Sidebar isOpen={isOpen} toggleSideBar={toggleSideBar} />
+        <Navbar toggleSideBar={toggleSideBar}  />
         {/* {loggedIn? <Dashboard_Sidebar/>: null} */}
         <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route path="/signup" element={<Signup loginUser= {loginUser} loggedIn = {loggedIn} handleGetOrders={handleGetOrders}/>}/>
-          <Route path="/login" element={<Login loginUser= {loginUser} handleSignout = {handleSignOut} currentUser= {currentUser} loggedIn = {loggedIn} handleGetOrders={handleGetOrders}/>}/>
-          <Route path="/orders" element={<OrdersList  loggedIn = {loggedIn} order={order} handleGetOrder={handleGetOrder} orders={orders} handleDeleteOrder={handleDeleteOrder} currentUser ={currentUser} handleGetOrders={handleGetOrders}/>} />
-          <Route path="/dashboard" element={<Dashboard  loggedIn = {loggedIn} handleGetProducts={handleGetProducts} handleGetInquiries={handleGetInquiries} orders={orders}  currentUser ={currentUser} handleGetOrders={handleGetOrders}/>}  />
-          <Route path="/contacts" element={<List  loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser}/>} />
-          <Route path="/items" element={<Product  handleGetOrders={handleGetOrders} loggedIn = {loggedIn} orders={orders}  currentUser ={currentUser} items={items}/>} />
-          <Route path="/inquiries" element={<Inquiries  loggedIn = {loggedIn} orders={orders} inquiries={inquiries} currentUser ={currentUser} handleGetOrders={handleGetOrders} handleGetInquiries={handleGetInquiries} handleDeleteInquiry={handleDeleteInquiry}/>} />
-          <Route path="/orders/:id" element={<SingleOrder  loggedIn = {loggedIn} order={order} inquiries={inquiries} currentUser ={currentUser} handleGetOrders={handleGetOrders} handleGetInquiries={handleGetInquiries} handleDeleteInquiry={handleDeleteInquiry}/>} />
-          <Route path="new_order" element={<NewOrder  loggedIn = {loggedIn} orders={orders} inquiries={inquiries} currentUser ={currentUser} handleGetOrders={handleGetOrders} handleGetInquiries={handleGetInquiries} handleDeleteInquiry={handleDeleteInquiry}/>} />
+          <Route path="/signup" element={<Signup  handleGetOrders={handleGetOrders}/>}/>
+          <Route path="/login" element={<Login  handleSignout = {handleSignOut}  handleGetOrders={handleGetOrders}/>}/>
+          <Route path="/orders" element={<OrdersList   order={order} handleGetOrder={handleGetOrder} orders={orders} handleDeleteOrder={handleDeleteOrder} handleGetOrders={handleGetOrders}/>} />
+          <Route path="/dashboard" element={<Dashboard   handleGetProducts={handleGetProducts} handleGetInquiries={handleGetInquiries} orders={orders}  handleGetOrders={handleGetOrders}/>}  />
+          <Route path="/contacts" element={<List   orders={orders}  />} />
+          <Route path="/items" element={<Product  handleGetOrders={handleGetOrders}  orders={orders}   items={items}/>} />
+          <Route path="/inquiries" element={<Inquiries handleGetOrders={handleGetOrders} handleGetInquiries={handleGetInquiries} handleDeleteInquiry={handleDeleteInquiry}/>} />
+          <Route path="/orders/:id" element={<SingleOrder  order={order} inquiries={inquiries}  handleGetOrders={handleGetOrders} handleGetInquiries={handleGetInquiries} handleDeleteInquiry={handleDeleteInquiry}/>} />
+          <Route path="new_order" element={<NewOrder   orders={orders} inquiries={inquiries}  handleGetOrders={handleGetOrders} handleGetInquiries={handleGetInquiries} handleDeleteInquiry={handleDeleteInquiry}/>} />
         </Routes>
         
       </Router>

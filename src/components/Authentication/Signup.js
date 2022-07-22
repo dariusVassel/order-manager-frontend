@@ -3,10 +3,11 @@ import { baseUrl, headers } from '../../Globals'
 import { useNavigate } from 'react-router-dom'
 import { Container, Form, FormContent, FormWrap, Icon, FormH1, FormLabel, FormButton, FormInput, Text, IconWrap, CloseIcon } from './LoginElements'
 import ScrollToTop from '../ScrollToTop'
+import {useDispatch, useSelector} from 'react-redux'
+import { signup } from '../../actions/sessions'
 
 
-
-export default function Signup({loginUser, loggedIn, handleGetOrders}) {
+export default function Signup({loggedIn, handleGetOrders}) {
     const [signupInfo, setSignupInfo] = useState(false)
     const [userData, setUserData] = useState({
         username: "",
@@ -14,17 +15,17 @@ export default function Signup({loginUser, loggedIn, handleGetOrders}) {
         role: "employee", 
         organization_id: 1
     })
+    const dispatch = useDispatch() 
+    const requesting = useSelector(state=>state.requesting)
+    const errors = useSelector(state => state.errors)
 
-    const [errors, setErrors] = useState({})
 
-
-    const client_Id = "474331682024-o3r26crc6o28662hptig08ks31b3slpa.apps.googleusercontent.com"
-
+    
     const navigate = useNavigate()
 
     useEffect(()=> {
         if (loggedIn){
-            navigate("/orders")
+            navigate("/")
         }
       }, [loggedIn])
 
@@ -50,27 +51,28 @@ export default function Signup({loginUser, loggedIn, handleGetOrders}) {
             }
         }
         console.log(strongParams)
-        fetch(baseUrl + '/users',{
-            method: "POST",
-            headers,
-            body: JSON.stringify(strongParams)
-        })
-        .then(resp => {
-            if (resp.ok) {
-                resp.json().then(data => {
-                    loginUser(data.user)
-                    localStorage.setItem('jwt', data.token)
-                    handleGetOrders(e)
-                    navigate('/dashboard')
-            })
-            } else {
-                resp.json().then(e=> {
-                    for (const [key, value] of Object.entries(e)) {
-                        setErrors(`${key}: ${value}`);
-                      }
-                })
-            }
-        })
+        // fetch(baseUrl + '/users',{
+        //     method: "POST",
+        //     headers,
+        //     body: JSON.stringify(strongParams)
+        // })
+        // .then(resp => {
+        //     if (resp.ok) {
+        //         resp.json().then(data => {
+        //             loginUser(data.user)
+        //             localStorage.setItem('jwt', data.token)
+        //             handleGetOrders(e)
+        //             navigate('/dashboard')
+        //     })
+        //     } else {
+        //         resp.json().then(e=> {
+        //             for (const [key, value] of Object.entries(e)) {
+        //                 setErrors(`${key}: ${value}`);
+        //               }
+        //         })
+        //     }
+        // })
+        dispatch(signup(strongParams, navigate))
 
 
 
@@ -82,13 +84,15 @@ export default function Signup({loginUser, loggedIn, handleGetOrders}) {
         })
     }
 
+    
+
     function toggleForm() {
         setSignupInfo(!signupInfo);
     } 
 
-    function capitalize(word) {
-        return word[0].toUpperCase() + word.slice(1).toLowerCase();
-      }
+    // function capitalize(word) {
+    //     return word[0].toUpperCase() + word.slice(1).toLowerCase();
+    //   }
 
 
 
@@ -113,7 +117,7 @@ export default function Signup({loginUser, loggedIn, handleGetOrders}) {
                                 <FormInput  required type="password"  value={userData.password} name="password" id="password" onChange={handleUserData}/>
                             <FormButton type="submit">Sign Up</FormButton>
                         </Form>
-                        {errors.length > 0 ? (<p style={{ color: "red" }}>{capitalize(errors)}</p>) : (null)}
+                        {errors.length > 0 ? (<p style={{ color: "red" }}>{(errors)}</p>) : (null)}
                     </FormContent>
                 </FormWrap>
             </Container>

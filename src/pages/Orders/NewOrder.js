@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { baseUrl, headers, getToken } from '../../Globals'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../../Footer/Footer';
-import Dashboard_Sidebar from '../Dashboard_Sidebar/Dashboard_Sidebar';
+import Dashboard_Sidebar from '../../components/Dashboard_Sidebar/Dashboard_Sidebar';
 
 
 

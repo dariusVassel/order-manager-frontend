@@ -1,10 +1,10 @@
 import React from 'react'
-import Dashboard_Sidebar from '../Dashboard_Sidebar/Dashboard_Sidebar'
+import Dashboard_Sidebar from '../../components/Dashboard_Sidebar/Dashboard_Sidebar'
 import "./SingleOrder.scss"
-import List from '../List/List'
-import DashboardCharts from '../Dashboard_Charts/DashboardCharts'
+import List from '../../components/List/List'
+import DashboardCharts from '../../components/Dashboard_Charts/DashboardCharts'
 import SetMealIcon from '@mui/icons-material/SetMeal';
-import Footer from '../Footer/Footer'
+import Footer from '../../Footer/Footer'
 
 function SingleOrder({order}) {
   return (
