@@ -3,12 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+//Redux Dependencies
 import { Provider } from 'react-redux'
-import {configureStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import rootReducer from './reducers'
+import thunk from 'redux-thunk'
+import {composeWithDevTools} from 'redux-devtools-extension'
 
-const store = configureStore(rootReducer)
-
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)) )
+//window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+ 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
