@@ -58,7 +58,7 @@ function DashboardInquiry({handleGetInquiries}) {
           }
       }
 
-      dispatch(addInquiry(strongParams))
+      dispatch(addInquiry(strongParams, navigate))
 
       // fetch(baseUrl + '/order_inquiries',{
       //     method: "POST",

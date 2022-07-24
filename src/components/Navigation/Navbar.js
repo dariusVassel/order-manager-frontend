@@ -112,7 +112,7 @@ export default function Navbar({ handleGetProducts, handleGetContacts, toggleSid
                 </ImgWrap>
                 <NavBtn>
                   <Stack direction="row" spacing={1}>
-                    {/* <NavBtnLink to='/dashboard'>Dashboard</NavBtnLink> */}
+                    {/* <NavBtnLink to='/inquiries'>Dashboard</NavBtnLink> */}
                     <NavBtnLink to='/' onClick={handleLogout}>Logout</NavBtnLink>
                   </Stack>
                 </NavBtn>

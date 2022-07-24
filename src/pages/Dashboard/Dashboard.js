@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 
-function Dashboard({ handleGetOrders, handleGetInquiries, handleGetProducts}) {
+function Dashboard({ handleGetOrders, handleGetProducts}) {
     const navigate = useNavigate()
     const loggedIn = useSelector(state => state.sessions.loggedIn)
     const dispatch = useDispatch()
@@ -45,7 +45,7 @@ function Dashboard({ handleGetOrders, handleGetInquiries, handleGetProducts}) {
         <br/>
         <br/>
         <div className='home'>
-            <Dashboard_Sidebar handleGetOrders={handleGetOrders} handleGetInquiries={handleGetInquiries} handleGetProducts={handleGetProducts}/>
+            <Dashboard_Sidebar handleGetOrders={handleGetOrders} handleGetProducts={handleGetProducts}/>
                 <div className='homeContainer'>
 
                     <div className='widgets'>
@@ -61,7 +61,7 @@ function Dashboard({ handleGetOrders, handleGetInquiries, handleGetProducts}) {
                     </div>
     
                     <div className='charts'>
-                        <DashboardInquiry handleGetInquiries={handleGetInquiries}/>
+                        <DashboardInquiry />
                         <DashboardCharts title="Last 6 Months (Revenue)" aspect={2 / 1}/>
                     </div>
                 </div>

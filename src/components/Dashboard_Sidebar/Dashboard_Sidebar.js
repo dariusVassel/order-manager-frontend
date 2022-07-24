@@ -146,145 +146,92 @@ function Dashboard_Sidebar({handleGetOrders, handleGetInquiries, handleGetProduc
           </IconButton>
           )}  
         </DrawerHeader>
-
         <Divider />
-
         <List>
-        
-            <ListItem key="Dashboard" disablePadding sx={{ display: 'block' }}>
-              <Link to={`/dashboard`} style={{ textDecoration: "none" }} className="links">
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <Tooltip title="Dashboard">
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <HomeIcon />
-                </ListItemIcon>
-                </Tooltip>
-                <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-              </Link>
-            </ListItem>    
+          <ListItem key="Dashboard" disablePadding sx={{ display: 'block' }}>
+            <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5 }} >
+              <Tooltip title="Dashboard">
+              <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}} >
+                <Link to={`/dashboard`} style={{ textDecoration: "none" }} className="links">
+                  <HomeIcon  color="action"/>
+                </Link>
+              </ListItemIcon>
+              </Tooltip>
             
+              <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
+
+            </ListItemButton>
+          </ListItem>
         </List>
 
         <Divider />
         
         <List>
-            <ListItem key={'Orders'} disablePadding sx={{ display: 'block' }} >
-              <Link to={`/orders`} style={{ textDecoration: "none" }} className="links" onClick={handleOrderClick}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
+          <ListItem key={'Orders'} disablePadding sx={{ display: 'block' }} >
+            <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} >
                 <Tooltip title={"Orders"}>
-                <ListItemIcon 
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <SummarizeIcon />
-                </ListItemIcon>
+                  <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }} >
+                    <Link to={`/orders`} style={{ textDecoration: "none" }} className="links">
+                      <SummarizeIcon color="action"/>
+                    </Link>
+                  </ListItemIcon>
                 </Tooltip>
-                <ListItemText primary={'Orders'} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-              </Link>
-            </ListItem>
+              <ListItemText primary={'Orders'} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
 
-            <ListItem key={'Inquiries'} disablePadding sx={{ display: 'block' }} >
-              <Link to={`/inquiries`} style={{ textDecoration: "none" }} className="links" onClick={handleInquiryClick}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
+          <ListItem key={'Inquiries'} disablePadding sx={{ display: 'block' }} >
+            <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }}>
                 <Tooltip title={"Inquiries"}>
-                <ListItemIcon 
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <ForwardToInboxIcon />
-                </ListItemIcon>
+                  <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center', }} >
+                    <Link to={`/inquiries`} style={{ textDecoration: "none" }} className="links" >
+                      <ForwardToInboxIcon color="action"/>
+                    </Link>
+                  </ListItemIcon>
                 </Tooltip>
-                <ListItemText primary={'Inquiries'} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-              </Link>
-            </ListItem>
-            
-          {['Shipments', 'Contacts'].map((text, index) => (
-            
-            <ListItem key={text} disablePadding sx={{ display: 'block' }} >
-              <Link to={`/${text.toLowerCase()}`} style={{ textDecoration: "none" }} className="links" >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <Tooltip title={text}>
-                <ListItemIcon 
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index === 0 ? < DirectionsBoatFilledIcon/> : <ContactPageIcon/> }
-                </ListItemIcon>
-                </Tooltip>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-              </Link>
-            </ListItem>
+              <ListItemText primary={'Inquiries'} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
 
-            
-            
-          ))}
-          <ListItem key={'Products'} disablePadding sx={{ display: 'block' }} >
-              <Link to={`/items`} style={{ textDecoration: "none" }} className="links" onClick={handleProductClick}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <Tooltip title={"Products"}>
-                <ListItemIcon 
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <SetMealIcon />
-                </ListItemIcon>
+          <ListItem key={'Shipments'} disablePadding sx={{ display: 'block' }} >
+            <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }}>
+                <Tooltip title={"Shipments"}>
+                  <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center', }} >
+                    <Link to={`/orders`} style={{ textDecoration: "none" }} className="links" >
+                    < DirectionsBoatFilledIcon color="action"/>
+                    </Link>
+                  </ListItemIcon>
                 </Tooltip>
-                <ListItemText primary={'Products'} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-              </Link>
-            </ListItem>
+              <ListItemText primary={'Shipments'} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem key={'Contacts'} disablePadding sx={{ display: 'block' }} >
+            <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }}>
+                <Tooltip title={"Contacts"}>
+                  <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center', }} >
+                    <Link to={`/contacts`} style={{ textDecoration: "none" }} className="links" >
+                    <ContactPageIcon color="action"/>
+                    </Link>
+                  </ListItemIcon>
+                </Tooltip>
+              <ListItemText primary={'Contacts'} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem key={'Products'} disablePadding sx={{ display: 'block' }} >
+            <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }}>
+                <Tooltip title={"Products"}>
+                  <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center', }} >
+                    <Link to={`/items`} style={{ textDecoration: "none" }} className="links" >
+                    <SetMealIcon color="action"/>
+                    </Link>
+                  </ListItemIcon>
+                </Tooltip>
+              <ListItemText primary={'Products'} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+            
         </List>
         <Divider />
 

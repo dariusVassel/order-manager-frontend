@@ -6,7 +6,7 @@ import ScrollToTop from '../ScrollToTop'
 import {useDispatch, useSelector} from 'react-redux'
 import {login} from '../../actions/sessions'
 
-export default function Login({loginUser, handleGetOrders, currentUser, handleSignOut}) {
+export default function Login({}) {
     const [userData, setUserData] = useState({
         username: "",
         password: ""
@@ -14,15 +14,11 @@ export default function Login({loginUser, handleGetOrders, currentUser, handleSi
     const errors = useSelector(state => state.errors)
     const loggedIn = useSelector(state => state.sessions.loggedIn)
 
-
-    // const [errors, setErrors] = useState([])
-
     //REDUX
     const dispatch = useDispatch()
 
     //React-Router-Dom
     const navigate = useNavigate()
-
 
     useEffect(()=> {
         if (loggedIn){
@@ -51,23 +47,6 @@ export default function Login({loginUser, handleGetOrders, currentUser, handleSi
             password
         }
 
-        // fetch(baseUrl + '/login',{
-        //     method: "POST",
-        //     headers,
-        //     body: JSON.stringify(strongParams)
-        // })
-        // .then(resp => {
-        //     if (resp.ok) {
-        //         resp.json().then(data => {
-        //             loginUser(data.user)
-        //             localStorage.setItem('jwt', data.token)
-        //             handleGetOrders(e)
-        //             navigate('/dashboard')
-        //     })
-        //     } else {
-        //         resp.json().then(e=> setErrors(e.errors))
-        //     }
-        // })
         dispatch(login(strongParams, navigate))
 
 
