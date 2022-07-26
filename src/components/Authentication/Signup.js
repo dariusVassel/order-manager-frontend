@@ -50,7 +50,7 @@ export default function Signup({loggedIn, handleGetOrders}) {
                 organization_id: userData.organization_id
             }
         }
-        console.log(strongParams)
+        //console.log(strongParams)
         // fetch(baseUrl + '/users',{
         //     method: "POST",
         //     headers,
@@ -110,7 +110,7 @@ export default function Signup({loggedIn, handleGetOrders}) {
                     <FormContent>
                         <Form onSubmit = {handleSubmit}>
                             <FormH1>Create Account:</FormH1>
-                                <FormLabel htmlFor='username'>Username</FormLabel>
+                                <FormLabel htmlFor='username'>Email</FormLabel>
                                 <FormInput  required type="text"  value={userData.username} name="username" id="username" onChange={handleUserData}/>
 
                                 <FormLabel htmlFor='password'>Password</FormLabel>
