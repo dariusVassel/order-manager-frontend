@@ -15,7 +15,7 @@ import TableRow from '@mui/material/TableRow';
 import { Paper, Container, Box } from '@mui/material'
 import {Button,Card,CardContent,TextField,InputAdornment,SvgIcon, Typography} from '@mui/material';
 import Stack from '@mui/material/Stack';
-
+ 
 //Components//
 import Footer from '../../Footer/Footer'
 import Dashboard_Sidebar from '../../components/Dashboard_Sidebar/Dashboard_Sidebar'
@@ -64,8 +64,8 @@ function OrdersList({ handleGetOrder}) {
       format: (value) => value.toLocaleString('en-US'),
     },
     {
-      id: 'seller',
-      label: 'Seller',
+      id: 'total_kilos',
+      label: 'Kilos',
       minWidth: 130,
       align: 'center',
       format: (value) => value.toFixed(2),
@@ -155,7 +155,9 @@ function OrdersList({ handleGetOrder}) {
                     ))}
                   </TableRow>
                 </TableHead>
+                {orders ? (
                 <TableBody>
+                  
                   {orders.filter((order) => {
                     if (searchTerm == ""){
                       return order
@@ -166,10 +168,10 @@ function OrdersList({ handleGetOrder}) {
                   .map((order) => (
                   <TableRow key={order.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} hover>
                     <TableCell component="th" scope="row" >{order.po_number}</TableCell>
-                    <TableCell align="center" >{order.PO_date}</TableCell>
+                    <TableCell align="center" >{order.shipment_date}</TableCell>
+                    <TableCell align="center" >{order.order_item.item.species_name}</TableCell>
                     <TableCell align="center" >{order.cartons}</TableCell>
-                    <TableCell align="center" >{order.cartons}</TableCell>
-                    <TableCell align="center" >{order.cartons}</TableCell>
+                    <TableCell align="center" >{order.total_kilos} kgs</TableCell>
                     <TableCell align="center">
                       <Link  to={`/orders/${order.id}`} onClick = {() => handleSingleOrderClick(order.id)} variant="outlined" style={{paddingLeft: 13, textDecoration: 'none'}} ><Button variant="outlined" >View</Button></Link>
                     </TableCell>
@@ -177,6 +179,7 @@ function OrdersList({ handleGetOrder}) {
                   </TableRow>
                   ))}
                 </TableBody>
+                ): (null)}
               </Table>
             </TableContainer>
       </Paper>

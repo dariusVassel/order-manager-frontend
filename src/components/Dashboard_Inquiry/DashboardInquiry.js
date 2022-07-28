@@ -54,7 +54,8 @@ function DashboardInquiry({handleGetInquiries}) {
             shipment_date: newInquiry.shipment_date,
             contact_name: newInquiry.contact_name, 
             user_id: currentUser.id,
-            contact_id: newInquiry.contact_id
+            contact_id: newInquiry.contact_id,
+            status: "NOT SENT"
           }
       }
 

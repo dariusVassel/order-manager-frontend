@@ -24,6 +24,7 @@ function DashboardWidgets({type}) {
         title: "PRODUCTS",
         isMoney: false,
         link: "View Products",
+        navigation: "/items",
         amount: 17,
         icon: (
           <SetMealIcon
@@ -41,6 +42,7 @@ function DashboardWidgets({type}) {
         title: "ACTIVE ORDERS",
         isMoney: false,
         link: "View ongoing orders",
+        navigation: "/orders",
         amount: 24,
         icon: (
           <SummarizeIcon
@@ -58,6 +60,7 @@ function DashboardWidgets({type}) {
         title: "COMPLETED ORDERS",
         isMoney: false,
         link: "View completed orders",
+        navigation: "/orders",
         amount: 87,
         icon: (
           <SummarizeIcon
@@ -72,6 +75,7 @@ function DashboardWidgets({type}) {
         title: "CONTACTS",
         isMoney: false,
         link: "View Contacts",
+        navigation: "/contacts",
         amount: 103,
         icon: (
           <ContactPageIcon
@@ -93,7 +97,7 @@ function DashboardWidgets({type}) {
         <div className = 'left'>
             <span className = 'title'>{data.title}</span>
             <span className = 'counter '>{data.isMoney && "$"} {data.amount}</span>
-            <Link to={`/${data.title.toLowerCase()}`} style={{ textDecoration: "none" }}><span className = 'link ' style={{ textDecoration: "none" }}>{data.link}</span></Link>
+            <Link to={`${data.navigation}`} style={{ textDecoration: "none" }}><span className = 'link ' style={{ textDecoration: "none" }}>{data.link}</span></Link>
         </div>
         <div className = 'right'>
             {/* <div className = 'percentage positive'>

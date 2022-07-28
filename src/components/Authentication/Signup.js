@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { baseUrl, headers } from '../../Globals'
 import { useNavigate } from 'react-router-dom'
-import { Container, Form, FormContent, FormWrap, Icon, FormH1, FormLabel, FormButton, FormInput, Text, IconWrap, CloseIcon } from './LoginElements'
+import { Container, Form, FormContent, FormWrap, FormH1, FormLabel, FormButton, FormInput, IconWrap, CloseIcon } from './LoginElements'
 import ScrollToTop from '../ScrollToTop'
 import {useDispatch, useSelector} from 'react-redux'
 import { signup } from '../../actions/sessions'
@@ -124,9 +123,3 @@ export default function Signup({loggedIn, handleGetOrders}) {
         </>
   )
 }
-
-
-// {for (const [key, value] of Object.entries(errors)) {
-//     <h1 style={{ color: "red" }}>{(`${key}: ${value}`)}</h1> 
-//  }
-// }
