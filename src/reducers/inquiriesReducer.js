@@ -8,6 +8,7 @@ const inquiriesReducer = (state = initialState, action) => {
         case "DELETE_INQUIRY":
             const id = action.payload
             return [...state.filter((inquiry) => inquiry.id !== id)]
+        
         case "SET_INQUIRIES":
             return action.payload
         default:
@@ -15,4 +16,4 @@ const inquiriesReducer = (state = initialState, action) => {
     }
 }
 
-export default inquiriesReducer
+export default inquiriesReducer 

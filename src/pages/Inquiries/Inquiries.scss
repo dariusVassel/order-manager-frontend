@@ -1,0 +1,26 @@
+.tableCell{
+    
+.status {
+    padding: 5px;
+    border-radius: 5px;
+    
+
+    &.SENT {
+      color: green;
+      background-color: rgba(0, 128, 0, 0.151);
+      
+    }
+    &.NOT {
+      color: goldenrod;
+      background-color: rgba(189, 189, 3, 0.103);
+    }
+
+    &.EDITED {
+      color: goldenrod;
+      background-color: rgba(189, 189, 3, 0.103);
+    }
+  }
+
+  
+
+  }
