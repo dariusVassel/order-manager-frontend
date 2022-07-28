@@ -73,3 +73,66 @@ export const loadInquiries = () => {
           dispatch({type: "DONE_REQUESTING"})
     }
 }
+
+export const sendInquiry = (navigate, strongParams, id ) => {
+
+
+  //***for fetch***//
+  return async (dispatch) => {
+    dispatch({type : "REQUESTING"});
+    console.log(strongParams)
+    const resp = await fetch(baseUrl + `/order_inquiries/${id}`,{
+      method: "PATCH",
+      headers: {
+          ...headers,
+          ...getToken()
+      },
+      body: JSON.stringify(strongParams)
+    })
+
+    const data = await resp.json();
+    console.log(data)
+    if(data.errors) {
+        dispatch({ type: "ERRORS", payload: data.errors })
+      } else {
+
+        dispatch({ type: "CLEAR_ERRORS" })
+        dispatch({type: "SEND_INQUIRY", payload: data})
+        dispatch({type: "LOAD_INQUIRY"})
+        navigate('/inquiries')
+      }
+      console.log("WE IN THE HOUSE")
+        dispatch({ type: "DONE_REQUESTING" });
+  }
+}
+
+export const editInquiry = (navigate, strongParams, id ) => {
+
+
+  //***for fetch***//
+  return async (dispatch) => {
+    dispatch({type : "REQUESTING"});
+    console.log(strongParams)
+    const resp = await fetch(baseUrl + `/order_inquiries/${id}`,{
+      method: "PATCH",
+      headers: {
+          ...headers,
+          ...getToken()
+      },
+      body: JSON.stringify(strongParams)
+    })
+
+    const data = await resp.json();
+    console.log(data)
+    if(data.errors) {
+        dispatch({ type: "ERRORS", payload: data.errors })
+      } else {
+
+        dispatch({ type: "CLEAR_ERRORS" })
+        dispatch({type: "EDIT_INQUIRY", payload: data})
+        navigate('/inquiries')
+      }
+      console.log("WE IN THE HOUSE")
+        dispatch({ type: "DONE_REQUESTING" });
+  }
+}
