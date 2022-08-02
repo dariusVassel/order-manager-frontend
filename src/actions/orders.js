@@ -3,7 +3,7 @@ import { baseUrl, headers, getToken } from '../Globals'
 export const loadOrders = () => {
     return async dispatch => {
         dispatch({type: "REQUESTING"})
-        const resp = await fetch(baseUrl + '/api/orders', {
+        const resp = await fetch(baseUrl + '/orders', {
             headers: {
               ...headers,
               ...getToken()
@@ -22,7 +22,7 @@ export const deleteOrder = (navigate, id ) => {
   return async (dispatch) => {
       dispatch({type : "REQUESTING"});
 
-      const resp = await fetch(baseUrl + `/api/orders/${id}`, {
+      const resp = await fetch(baseUrl + `/orders/${id}`, {
         method: "DELETE",
         headers: {
           ...headers,

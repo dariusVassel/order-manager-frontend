@@ -12,7 +12,7 @@ export const signup = (strongParams, navigate) => {
     return async (dispatch) => {
         dispatch({type : "REQUESTING"});
 
-         const resp = await fetch(baseUrl + '/api/users',{
+         const resp = await fetch(baseUrl + '/users',{
             method: "POST",
             headers,
             body: JSON.stringify(strongParams)
@@ -53,7 +53,7 @@ export const login = (strongParams, navigate) => {
     return async dispatch => {
     dispatch({type : "REQUESTING"});
 
-    const resp = await fetch(baseUrl + '/api/login',{
+    const resp = await fetch(baseUrl + '/login',{
         method: "POST",
         headers,
         body: JSON.stringify(strongParams)
@@ -93,7 +93,7 @@ export const getCurrentUser = () => {
         //Into Loading State
         dispatch({type: "REQUESTING"})
 
-        const resp = await fetch(baseUrl + '/api/get-current-user', {
+        const resp = await fetch(baseUrl + '/get-current-user', {
             method: "GET",
             headers: {
             ...headers,
