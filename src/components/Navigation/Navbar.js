@@ -69,7 +69,7 @@ export default function Navbar({ handleGetProducts, handleGetContacts, toggleSid
                 withthe<b>tide</b>
               </NavLogo>
             ):(
-              <NavLogo to="/dashboard" onClick={toggleHome}>withthe<b>tide</b></NavLogo>
+              <NavLogo to="/dashboard" onClick={toggleHome}>withthe<b>tidee</b></NavLogo>
             )}
             
             <MobileIcon onClick={handleClick2}>
