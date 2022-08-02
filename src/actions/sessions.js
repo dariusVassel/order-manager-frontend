@@ -53,7 +53,7 @@ export const login = (strongParams, navigate) => {
     return async dispatch => {
     dispatch({type : "REQUESTING"});
 
-    const resp = await fetch(baseUrl + '/login',{
+    const resp = await fetch(baseUrl + '/api/login',{
         method: "POST",
         headers,
         body: JSON.stringify(strongParams)
@@ -93,7 +93,7 @@ export const getCurrentUser = () => {
         //Into Loading State
         dispatch({type: "REQUESTING"})
 
-        const resp = await fetch(baseUrl + '/get-current-user', {
+        const resp = await fetch(baseUrl + '/api/get-current-user', {
             method: "GET",
             headers: {
             ...headers,
