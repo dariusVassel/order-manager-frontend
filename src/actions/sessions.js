@@ -12,7 +12,7 @@ export const signup = (strongParams, navigate) => {
     return async (dispatch) => {
         dispatch({type : "REQUESTING"});
 
-         const resp = await fetch(baseUrl + '/users',{
+         const resp = await fetch(baseUrl + '/api/users',{
             method: "POST",
             headers,
             body: JSON.stringify(strongParams)
@@ -75,6 +75,7 @@ export const login = (strongParams, navigate) => {
     // })
 
     const data = await resp.json()
+    //console.log(data)
     if(data.errors) {
         dispatch({ type: "ERRORS", payload: data.errors })
       } else {
