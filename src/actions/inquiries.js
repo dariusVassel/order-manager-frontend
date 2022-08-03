@@ -58,6 +58,7 @@ export const deleteInquiry = (navigate, id ) => {
 
 
 export const loadInquiries = () => {
+    console.log(baseUrl)
     return async dispatch => {
         dispatch({type: "REQUESTING"})
         const resp = await fetch(baseUrl + '/order_inquiries', {

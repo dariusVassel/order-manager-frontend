@@ -89,6 +89,7 @@ export const login = (strongParams, navigate) => {
 }
 
 export const getCurrentUser = () => {
+    console.log(baseUrl)
     return async dispatch => {
         //Into Loading State
         dispatch({type: "REQUESTING"})
